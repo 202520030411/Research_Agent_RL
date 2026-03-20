@@ -1,0 +1,66 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=0.65in, top=0.5in, bottom=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[skip=3pt]{parskip}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{5pt}{2pt}
+\titlespacing*{\subsection}{0pt}{3pt}{1pt}
+
+\title{\vspace{-2em}\textbf{Efficient Research Agents via Hybrid Training:\\
+\large Supervised Fine-Tuning of LLMs with Reinforcement Learning-Based Decision Policies}\vspace{-1.2em}}
+\author{Yue Wu}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Motivation \& Objective}
+
+LLM agents excel at reasoning and tool use but suffer from \textbf{inefficient information gathering} (excessive search) and \textbf{lack of adaptive stopping} (heuristic or fixed rules). SFT alone improves reasoning quality but not efficiency; end-to-end RL on LLMs is expensive and unstable.
+
+This project proposes a \textbf{hybrid framework} combining (1) \textbf{SFT} on a small LLM (Qwen-0.6B via QLoRA) for structured reasoning and (2) a \textbf{lightweight RL policy network} that learns \emph{when to stop}---achieving high accuracy with minimal steps and tool calls.
+
+\section*{System Architecture}
+
+The system has two decoupled components:
+
+\textbf{(A) SFT LLM} (Qwen-0.6B, QLoRA): handles reasoning, tool use, and answer generation. Outputs structured JSON with \texttt{thought}, \texttt{action} (\texttt{search}/\texttt{read}/\texttt{answer}), and \texttt{confidence} (0--1).
+
+\textbf{(B) RL Policy Network} (lightweight MLP): takes as input \{step count, LLM confidence, document relevance, tool call count\} and outputs a binary decision \{\textsc{continue}, \textsc{stop}\}. This frames termination as an \textbf{optimal stopping problem}.
+
+Interaction loop: \quad Question $\to$ LLM $\to$ Policy $\to$ Decision $\to$ Reward
+
+\section*{Training Procedure}
+
+\textbf{Stage 1 --- SFT:} Fine-tune Qwen-0.6B with QLoRA on 5k--20k (question, reasoning trace, tool-use demonstration) triples. Objective: structured reasoning and calibrated confidence estimation.
+
+\textbf{Stage 2 --- RL:} Freeze LLM; train policy network with PPO/REINFORCE using the reward:
+\[
+R = \underbrace{+1}_{\text{correct answer}} \;-\; \underbrace{\alpha \cdot t}_{\text{step penalty}} \;-\; \underbrace{\beta \cdot \sum_{t} \mathbf{1}\!\left[D_{\mathrm{JS}}\!\left(P_{\mathrm{ans}}^{t} \,\|\, P_{\mathrm{ans}}^{t-1}\right) < \varepsilon\right]}_{\text{low-information-gain penalty}}
+\]
+
+\noindent\textbf{Reward Design Rationale.} A key challenge is defining when a tool call is \emph{unnecessary}. Rather than hindsight labels or oracles, we use an \textbf{answer-stability signal}: a step $t$ is penalized when the Jensen--Shannon divergence between consecutive answer distributions $P_{\mathrm{ans}}^{t}$ and $P_{\mathrm{ans}}^{t-1}$ falls below threshold $\varepsilon$, indicating the retrieved document shifted the agent's beliefs negligibly. This signal is computed directly from the LLM's \texttt{confidence} output---no extra supervision required. Hyperparameters $\alpha$, $\beta$, $\varepsilon$ are tuned via grid search on a held-out set.
+
+\section*{Experiments \& Evaluation}
+
+\textbf{Tasks:} Open-domain QA and multi-hop reasoning. \quad \textbf{Compute:} Single T4 GPU (Kaggle) for SFT; CPU/single GPU for RL.
+
+\textbf{Baselines:} (1) Fixed-step agent, (2) confidence-threshold stopping, (3) proposed RL stopping agent.
+
+\textbf{Metrics:} Accuracy, average steps, tool-call cost, efficiency score (accuracy / cost).
+
+\textbf{Expected outcomes:} Maintain or improve accuracy while reducing steps and tool calls; learn adaptive stopping behavior.
+
+\section*{Timeline \& Significance}
+
+\begin{tabular}{@{}ll@{}}
+Week 1: SFT dataset \& fine-tuning \quad & Week 3: RL policy training \\
+Week 2: Baseline agent implementation \quad & Week 4: Evaluation \& analysis
+\end{tabular}
+
+This work shows that efficient agent behavior can be achieved \emph{without} expensive end-to-end LLM RL by decoupling reasoning and decision-making, introducing a learnable stopping policy, and optimizing explicitly for cost and latency. Extensions include uncertainty-aware stopping, multi-agent (Explorer + Judge) setups, and cross-domain generalization.
+
+\end{document}
