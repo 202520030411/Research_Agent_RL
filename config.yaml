@@ -1,0 +1,63 @@
+model:
+  name: "Qwen/Qwen2.5-0.5B-Instruct"
+  max_seq_length: 2048
+  torch_dtype: "float16"
+
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype: "float16"
+
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+dataset:
+  name: "hotpot_qa"
+  split: "distractor"
+  train_size: 8000
+  val_size: 500
+  output_dir: "data/sft_traces"
+  train_file: "data/sft_traces/train.jsonl"
+  val_file: "data/sft_traces/val.jsonl"
+  max_steps_per_trace: 4
+  # Confidence assigned at each step position (0-indexed)
+  # Step 0: low confidence (just started), final step: high confidence
+  confidence_schedule:
+    min: 0.25
+    max: 0.92
+
+training:
+  output_dir: "checkpoints/qwen-sft"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  warmup_ratio: 0.05
+  lr_scheduler_type: "cosine"
+  logging_steps: 25
+  eval_steps: 200
+  save_steps: 200
+  save_total_limit: 3
+  fp16: true
+  dataloader_num_workers: 2
+  report_to: "none"
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+# Reward hyperparameters (used in Week 3 RL training)
+reward:
+  alpha: 0.1    # step penalty weight
+  beta: 0.05    # low-information-gain penalty weight
+  epsilon: 0.05 # JSD threshold for low-information-gain
