@@ -4,6 +4,7 @@ model:
   torch_dtype: "float16"
 
 quantization:
+  enabled: false  # 0.5B model fits on T4 in fp16 (~1GB); no need for 4-bit
   load_in_4bit: true
   bnb_4bit_quant_type: "nf4"
   bnb_4bit_use_double_quant: true

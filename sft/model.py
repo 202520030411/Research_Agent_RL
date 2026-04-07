@@ -1,10 +1,10 @@
 """
-Model loading: Qwen2.5-0.5B-Instruct with 4-bit QLoRA.
+Model loading: Qwen2.5-0.5B-Instruct with LoRA (optionally quantized to 4-bit).
 
 Provides:
   load_model_and_tokenizer() -> (model, tokenizer)
 
-The returned model has LoRA adapters injected and is ready for SFTTrainer.
+The returned model has LoRA adapters injected and is ready for Trainer.
 """
 
 import torch
@@ -26,16 +26,20 @@ def load_model_and_tokenizer(
     config_path: str = "config.yaml",
 ) -> tuple:
     """
-    Load the quantized base model and attach LoRA adapters.
+    Load the base model and attach LoRA adapters.
+
+    If quantization.enabled is true, loads in 4-bit with bitsandbytes.
+    Otherwise loads in fp16 (sufficient for <=1B models on T4 16GB).
 
     Returns:
-        model     : PeftModel ready for gradient-checkpointed training
+        model     : PeftModel ready for training
         tokenizer : AutoTokenizer with pad_token set
     """
     cfg = load_config(config_path)
     model_name = cfg["model"]["name"]
     qcfg = cfg["quantization"]
     lcfg = cfg["lora"]
+    use_quant = qcfg.get("enabled", True)
 
     # --- Tokenizer ---
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -43,30 +47,29 @@ def load_model_and_tokenizer(
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    # --- Quantization config ---
-    bnb_config = BitsAndBytesConfig(
-        load_in_4bit=qcfg["load_in_4bit"],
-        bnb_4bit_quant_type=qcfg["bnb_4bit_quant_type"],
-        bnb_4bit_use_double_quant=qcfg["bnb_4bit_use_double_quant"],
-        bnb_4bit_compute_dtype=_dtype(qcfg["bnb_4bit_compute_dtype"]),
-    )
-
-    # --- Base model ---
-    # device_map={"": 0} pins everything to cuda:0. Using "auto" can spread
-    # layers across devices, which breaks Trainer's DataParallel wrapper.
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        quantization_config=bnb_config,
+    # --- Load model ---
+    load_kwargs = dict(
         device_map={"": 0},
         trust_remote_code=True,
         torch_dtype=_dtype(cfg["model"]["torch_dtype"]),
     )
 
-    # Prepare for k-bit training: freeze base, cast layernorm to fp32, etc.
-    # Gradient checkpointing is handled by TrainingArguments with
-    # use_reentrant=False to avoid CUDA illegal-memory-access bugs.
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False)
+    if use_quant:
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=qcfg["load_in_4bit"],
+            bnb_4bit_quant_type=qcfg["bnb_4bit_quant_type"],
+            bnb_4bit_use_double_quant=qcfg["bnb_4bit_use_double_quant"],
+            bnb_4bit_compute_dtype=_dtype(qcfg["bnb_4bit_compute_dtype"]),
+        )
+        load_kwargs["quantization_config"] = bnb_config
+
+    model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
     model.config.use_cache = False
+
+    if use_quant:
+        model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False)
+    else:
+        model.enable_input_require_grads()
 
     # --- LoRA config ---
     lora_config = LoraConfig(
