@@ -17,9 +17,7 @@ Output JSONL format per line:
 """
 
 import json
-import os
 import random
-import re
 from pathlib import Path
 
 import yaml

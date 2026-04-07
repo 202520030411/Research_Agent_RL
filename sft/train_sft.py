@@ -18,7 +18,6 @@ The script:
 """
 
 import argparse
-import os
 import sys
 from functools import partial
 from pathlib import Path
@@ -31,8 +30,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from data.sft_dataset import SFTTraceDataset, collate_fn
 from sft.model import load_model_and_tokenizer
 
-from transformers import TrainingArguments
-from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
+from transformers import Trainer, TrainingArguments
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,19 +54,6 @@ def check_dataset_exists(cfg: dict) -> None:
             "Run `python data/prepare_sft_dataset.py` first."
         )
         sys.exit(1)
-
-
-def formatting_func(example: dict) -> list[str]:
-    """
-    TRL SFTTrainer expects a formatting function that takes a batch dict and
-    returns a list of strings. Each string is the full formatted chat text.
-
-    Note: We use our own SFTTraceDataset which already returns tokenized
-    tensors with masked labels. For SFTTrainer we pass the dataset directly
-    and disable its internal formatting by supplying dataset_text_field=None
-    and a custom data_collator.
-    """
-    return example["text"]
 
 
 def main():
@@ -129,14 +114,15 @@ def main():
     pad_collate = partial(collate_fn, pad_token_id=tokenizer.pad_token_id)
 
     # --- Trainer ---
-    trainer = SFTTrainer(
+    # We use plain Trainer (not SFTTrainer) because our dataset already returns
+    # tokenized tensors with instruction-masked labels. SFTTrainer would crash
+    # when given a pre-tokenized dataset with no "text" field.
+    trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         data_collator=pad_collate,
-        # dataset_text_field is not used because we pass pre-tokenized data
-        max_seq_length=cfg["model"]["max_seq_length"],
     )
 
     # --- Train ---

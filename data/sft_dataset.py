@@ -21,7 +21,6 @@ All system + user tokens are masked with IGNORE_INDEX = -100.
 
 import json
 from pathlib import Path
-from typing import Optional
 
 import torch
 from torch.utils.data import Dataset
