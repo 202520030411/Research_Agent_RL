@@ -119,7 +119,7 @@ def main():
         load_best_model_at_end=tcfg["load_best_model_at_end"],
         metric_for_best_model=tcfg["metric_for_best_model"],
         greater_is_better=tcfg["greater_is_better"],
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         remove_unused_columns=False,  # our dataset already returns tensors
         ddp_find_unused_parameters=False,
         gradient_checkpointing=True,
