@@ -52,10 +52,12 @@ def load_model_and_tokenizer(
     )
 
     # --- Base model ---
+    # device_map={"": 0} pins everything to cuda:0. Using "auto" can spread
+    # layers across devices, which breaks Trainer's DataParallel wrapper.
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         quantization_config=bnb_config,
-        device_map="auto",
+        device_map={"": 0},
         trust_remote_code=True,
         torch_dtype=_dtype(cfg["model"]["torch_dtype"]),
     )
