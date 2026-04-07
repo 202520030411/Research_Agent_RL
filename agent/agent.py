@@ -22,7 +22,7 @@ from agent.tools import ToolExecutor
 from agent.stopping import StoppingPolicy
 from data.sft_dataset import SYSTEM_PROMPT
 
-MAX_NEW_TOKENS = 200
+MAX_NEW_TOKENS = 400
 TEMPERATURE    = 0.1
 
 
@@ -53,20 +53,77 @@ class AgentResult:
 
 def _parse_step(text: str) -> dict | None:
     """
-    Extract the first valid JSON object from the model output.
-    Handles 'Step N: {...}' prefix format or bare JSON.
+    Robustly extract the first valid JSON object from the model output.
+
+    Strategies (tried in order):
+      1. Strip 'Step N:' prefix, then scan for balanced braces.
+      2. Try each line individually.
+      3. Try json.loads on the whole stripped text.
     """
+    if not text or not text.strip():
+        return None
+
     # Strip 'Step N:' prefix if present
     text = re.sub(r"^Step\s*\d+\s*:\s*", "", text.strip())
 
-    # Try to find a JSON object in the text
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if not match:
-        return None
+    # Strategy 1: find balanced braces manually (most robust)
+    parsed = _extract_first_json(text)
+    if parsed is not None:
+        return parsed
+
+    # Strategy 2: try each line separately
+    for line in text.splitlines():
+        line = line.strip()
+        line = re.sub(r"^Step\s*\d+\s*:\s*", "", line)
+        if line.startswith("{"):
+            try:
+                return json.loads(line)
+            except json.JSONDecodeError:
+                pass
+
+    # Strategy 3: whole text
     try:
-        return json.loads(match.group())
+        return json.loads(text)
     except json.JSONDecodeError:
         return None
+
+
+def _extract_first_json(text: str) -> dict | None:
+    """
+    Scan character by character to find the first balanced {...} block
+    and parse it as JSON. More reliable than a greedy regex.
+    """
+    depth = 0
+    start = -1
+    in_string = False
+    escape_next = False
+
+    for i, ch in enumerate(text):
+        if escape_next:
+            escape_next = False
+            continue
+        if ch == "\\" and in_string:
+            escape_next = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and start != -1:
+                candidate = text[start : i + 1]
+                try:
+                    return json.loads(candidate)
+                except json.JSONDecodeError:
+                    # Reset and keep looking
+                    start = -1
+    return None
 
 
 def _normalize_answer(ans: str) -> str:
@@ -74,8 +131,12 @@ def _normalize_answer(ans: str) -> str:
 
 
 def _is_correct(pred: str, gold: str) -> bool:
+    if not pred or not pred.strip():
+        return False
     p = _normalize_answer(pred)
     g = _normalize_answer(gold)
+    if not p or not g:
+        return False
     return p == g or g in p or p in g
 
 
