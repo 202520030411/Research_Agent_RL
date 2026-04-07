@@ -1,0 +1,7 @@
+checkpoints/
+data/sft_traces/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.DS_Store
