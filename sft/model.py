@@ -62,8 +62,11 @@ def load_model_and_tokenizer(
         torch_dtype=_dtype(cfg["model"]["torch_dtype"]),
     )
 
-    # Required before applying LoRA to a quantized model
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    # Prepare for k-bit training: freeze base, cast layernorm to fp32, etc.
+    # Gradient checkpointing is handled by TrainingArguments with
+    # use_reentrant=False to avoid CUDA illegal-memory-access bugs.
+    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False)
+    model.config.use_cache = False
 
     # --- LoRA config ---
     lora_config = LoraConfig(

@@ -18,6 +18,7 @@ The script:
 """
 
 import argparse
+import os
 import sys
 from functools import partial
 from pathlib import Path
@@ -105,9 +106,10 @@ def main():
         metric_for_best_model=tcfg["metric_for_best_model"],
         greater_is_better=tcfg["greater_is_better"],
         eval_strategy="steps",
-        remove_unused_columns=False,  # our dataset already returns tensors
+        remove_unused_columns=False,
         ddp_find_unused_parameters=False,
         gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
     )
 
     # --- Custom collator that handles our pre-masked labels ---
