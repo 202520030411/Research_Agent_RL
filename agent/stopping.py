@@ -128,11 +128,16 @@ class RLPolicy(StoppingPolicy):
         threshold  : probability threshold above which to stop (default 0.5)
     """
 
-    def __init__(self, model_path: str | None = None, threshold: float = 0.5):
-        self.threshold  = threshold
-        self.mlp        = None
+    def __init__(
+        self,
+        model_path: str | None = None,
+        threshold: float = 0.5,
+        policy_network=None,
+    ):
+        self.threshold = threshold
+        self.mlp       = policy_network  # accept a pre-loaded PolicyNetwork directly
 
-        if model_path:
+        if model_path and self.mlp is None:
             self._load(model_path)
 
     def _load(self, path: str) -> None:
