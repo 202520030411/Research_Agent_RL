@@ -8,7 +8,6 @@ Three policies are provided:
   1. NeverStop           — always continue (oracle upper bound on steps)
   2. FixedStepPolicy     — stop after exactly N tool-call steps
   3. ConfidencePolicy    — stop when confidence >= threshold
-  4. RLPolicy            — placeholder; wraps the Week-3 MLP (not trained yet)
 
 The agent calls should_stop() BEFORE each LLM call. If True, the agent
 requests one final answer step from the model and terminates.
@@ -109,62 +108,3 @@ class ConfidencePolicy(StoppingPolicy):
 
     def __repr__(self) -> str:
         return f"ConfidencePolicy(threshold={self.threshold}, min_steps={self.min_steps})"
-
-
-# ---------------------------------------------------------------------------
-# Week-3 placeholder — RL policy
-# ---------------------------------------------------------------------------
-
-class RLPolicy(StoppingPolicy):
-    """
-    Stopping policy backed by the Week-3 MLP trained with PPO/REINFORCE.
-
-    The MLP takes a feature vector:
-        [step_count, last_confidence, avg_confidence, tool_call_count]
-    and outputs a binary {continue=0, stop=1} decision.
-
-    Args:
-        model_path : path to saved MLP weights (set in Week 3)
-        threshold  : probability threshold above which to stop (default 0.5)
-    """
-
-    def __init__(
-        self,
-        model_path: str | None = None,
-        threshold: float = 0.5,
-        policy_network=None,
-    ):
-        self.threshold = threshold
-        self.mlp       = policy_network  # accept a pre-loaded PolicyNetwork directly
-
-        if model_path and self.mlp is None:
-            self._load(model_path)
-
-    def _load(self, path: str) -> None:
-        import torch
-        from rl.policy_network import PolicyNetwork  # imported only when available
-        self.mlp = PolicyNetwork.load(path)
-        self.mlp.eval()
-
-    def _features(self, history: list["StepRecord"]) -> list[float]:
-        tool_steps = [r for r in history if r.action in ("search", "read")]
-        step_count  = len(history)
-        tool_count  = len(tool_steps)
-        last_conf   = history[-1].confidence if history else 0.0
-        avg_conf    = (sum(r.confidence for r in history) / len(history)
-                       if history else 0.0)
-        return [float(step_count), last_conf, avg_conf, float(tool_count)]
-
-    def should_stop(self, history: list["StepRecord"]) -> bool:
-        if self.mlp is None or not history:
-            return False
-
-        import torch
-        feats  = torch.tensor([self._features(history)], dtype=torch.float32)
-        with torch.no_grad():
-            prob_stop = self.mlp(feats).item()
-        return prob_stop >= self.threshold
-
-    def __repr__(self) -> str:
-        loaded = self.mlp is not None
-        return f"RLPolicy(loaded={loaded}, threshold={self.threshold})"

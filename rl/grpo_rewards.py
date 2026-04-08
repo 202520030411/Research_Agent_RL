@@ -24,11 +24,26 @@ GRPOTrainer and available via **kwargs.
 from __future__ import annotations
 
 import json
+import math
 import re
 import string
 import unicodedata
 
-from rl.rewards import jsd_bernoulli
+
+# ---------------------------------------------------------------------------
+# JSD utility
+# ---------------------------------------------------------------------------
+
+def _kl_bernoulli(p: float, q: float, eps: float = 1e-8) -> float:
+    p = max(min(p, 1 - eps), eps)
+    q = max(min(q, 1 - eps), eps)
+    return p * math.log(p / q) + (1 - p) * math.log((1 - p) / (1 - q))
+
+
+def jsd_bernoulli(p: float, q: float) -> float:
+    """Jensen-Shannon divergence between Bernoulli(p) and Bernoulli(q)."""
+    m = (p + q) / 2.0
+    return 0.5 * _kl_bernoulli(p, m) + 0.5 * _kl_bernoulli(q, m)
 
 
 # ---------------------------------------------------------------------------
