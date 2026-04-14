@@ -12,8 +12,8 @@ Usage (from repo root):
 The script:
   1. Loads config.yaml
   2. Loads the JSONL traces produced by prepare_sft_dataset.py
-  3. Loads Qwen-0.6B-Instruct + QLoRA via sft/model.py
-  4. Runs TRL SFTTrainer with instruction masking
+  3. Loads Qwen-0.5B-Instruct + LoRA (fp16) via sft/model.py
+  4. Runs transformers.Trainer with instruction masking
   5. Saves the LoRA adapter to checkpoints/qwen-sft/final
 """
 
@@ -31,7 +31,23 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from data.sft_dataset import SFTTraceDataset, collate_fn
 from sft.model import load_model_and_tokenizer
 
-from transformers import Trainer, TrainingArguments
+from transformers import Trainer, TrainingArguments, TrainerCallback
+
+
+class FlushingCallback(TrainerCallback):
+    """Force stdout flush after every log so Kaggle/Jupyter shows loss in real time."""
+
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if logs and state.is_local_process_zero:
+            loss = logs.get("loss", logs.get("eval_loss", ""))
+            lr   = logs.get("learning_rate", "")
+            epoch = logs.get("epoch", "")
+            print(
+                f"  step {state.global_step:>5} | loss {loss:.4f}"
+                + (f" | lr {lr:.2e}" if lr else "")
+                + (f" | epoch {epoch:.2f}" if epoch else ""),
+                flush=True,
+            )
 
 
 def parse_args() -> argparse.Namespace:
@@ -125,6 +141,7 @@ def main():
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         data_collator=pad_collate,
+        callbacks=[FlushingCallback()],
     )
 
     # --- Train ---
