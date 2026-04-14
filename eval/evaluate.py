@@ -92,23 +92,7 @@ def build_tool_index(questions: list[dict], index_path: str,
 
     # Build from HotpotQA context embedded in the questions
     if questions:
-        seen: set[str] = set()
-        for q in questions:
-            for title, sentences in zip(
-                q["context"]["title"], q["context"]["sentences"]
-            ):
-                if title in seen:
-                    continue
-                seen.add(title)
-                executor._index.append({"title": title, "text": " ".join(sentences)})
-                executor._full[title] = " ".join(sentences)
-
-        # Save for reuse
-        Path(index_path).parent.mkdir(parents=True, exist_ok=True)
-        with open(index_path, "w") as f:
-            for entry in executor._index:
-                f.write(json.dumps(entry) + "\n")
-        print(f"Tool index built: {len(executor)} paragraphs → {index_path}")
+        executor.build_from_hotpotqa(questions, index_path=index_path)
 
     elif Path(fallback_traces).exists():
         executor.build_from_traces(fallback_traces, index_path)

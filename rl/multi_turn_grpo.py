@@ -94,16 +94,43 @@ def _build_turn_prompt(
     base = tokenizer.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True
     )
+    instruction = (
+        "Return exactly one next step as a single JSON object only. "
+        "Do not output multiple steps, observations, explanations, or any text "
+        "before or after the JSON."
+    )
     if not history:
-        return base
+        return base + instruction + f"\nStep {step_idx + 1}: "
 
     lines = []
     for i, entry in enumerate(history):
         lines.append(f"Step {i + 1}: {json.dumps(entry['step_json'])}")
         if entry.get("observation"):
             lines.append(f"Observation: {entry['observation'][:300]}")
+    lines.append(instruction)
     lines.append(f"Step {step_idx + 1}: ")
     return base + "\n".join(lines)
+
+
+def _canonicalize_step_output(raw_text: str) -> tuple[str, dict]:
+    """
+    Clamp a raw generation to its first valid JSON step.
+
+    The SFT model often continues by generating multiple future steps in one
+    shot. For multi-turn interaction we only keep the first valid JSON object
+    and ignore everything after it.
+
+    Returns:
+        canonical_text : compact JSON string if parse succeeds, else raw first line
+        step_json      : parsed first JSON object, or {} if parsing failed
+    """
+    objs = _extract_json_objects(raw_text)
+    if objs:
+        step_json = objs[0]
+        return json.dumps(step_json, ensure_ascii=True), step_json
+
+    first_line = raw_text.strip().splitlines()[0].strip() if raw_text.strip() else ""
+    return first_line, {}
 
 
 # ---------------------------------------------------------------------------
@@ -145,8 +172,9 @@ def collect_episode(
             do_sample=True,
             pad_token_id=tokenizer.eos_token_id,
         )
-        new_ids   = out_ids[0][enc["input_ids"].shape[1]:]
-        step_text = tokenizer.decode(new_ids, skip_special_tokens=True).strip()
+        new_ids = out_ids[0][enc["input_ids"].shape[1]:]
+        raw_step_text = tokenizer.decode(new_ids, skip_special_tokens=True).strip()
+        step_text, step_json = _canonicalize_step_output(raw_step_text)
 
         # Track token span for this LLM turn in the FULL sequence
         # (computed after full concatenation, approximated here via re-tokenisation)
@@ -155,18 +183,15 @@ def collect_episode(
             token_start=token_cursor,  # will be recalculated after concat
             token_end=token_cursor,
         ))
-        full_parts.append(step_text)
+        full_parts.append(step_text + "\n")
 
-        # Parse the generated step
-        objs = _extract_json_objects(step_text)
-        step_json = objs[0] if objs else {}
         action    = step_json.get("action", "answer")
 
         if action == "answer" or not action:
             pred_answer = step_json.get("answer", "")
             if not pred_answer:
                 import re
-                m = re.search(r'"answer"\s*:\s*"([^"]+)"', step_text)
+                m = re.search(r'"answer"\s*:\s*"([^"]+)"', raw_step_text)
                 pred_answer = m.group(1) if m else step_text[:80]
             history.append({"step_json": step_json, "observation": ""})
             break

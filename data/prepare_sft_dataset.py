@@ -37,12 +37,33 @@ def extract_supporting_titles(example: dict) -> list[str]:
 
 
 def build_search_query(question: str, entity_hint: str) -> str:
-    """Heuristically build a search query for an entity given the question."""
-    q = question.strip().rstrip("?")
-    # If entity is already prominent in the question, use it directly
-    if entity_hint.lower() in q.lower():
-        return entity_hint
-    return f"{entity_hint}"
+    """
+    Build a descriptive search query combining the entity with key question words.
+
+    This produces queries like "Ed Wood nationality filmmaker" instead of just "Ed Wood",
+    which teaches the model that search queries should be informative phrases,
+    not bare entity names.
+    """
+    # Strip punctuation from entity and question
+    q_clean = question.strip().rstrip("?")
+    entity_tokens = set(entity_hint.lower().split())
+
+    # Pick up to 3 content words from the question not already in the entity name
+    stop_words = {"the", "a", "an", "is", "are", "was", "were", "of", "in",
+                  "to", "and", "or", "did", "do", "does", "both", "same",
+                  "which", "what", "who", "when", "where", "how", "that",
+                  "have", "has", "had", "with", "for", "from", "by"}
+    key_words = [
+        w.strip("?,.")
+        for w in q_clean.split()
+        if w.lower().strip("?,.") not in stop_words
+        and w.lower().strip("?,.") not in entity_tokens
+        and len(w.strip("?,.")) > 3
+    ][:3]
+
+    if key_words:
+        return f"{entity_hint} {' '.join(key_words)}"
+    return entity_hint
 
 
 def assign_confidence(step_idx: int, total_steps: int, cfg: dict) -> float:
@@ -61,11 +82,13 @@ def assign_confidence(step_idx: int, total_steps: int, cfg: dict) -> float:
 
 
 def make_search_thought(question: str, entity: str, step_idx: int) -> str:
+    q_short = question.strip().rstrip("?")
     templates = [
-        f"I need to find information about {entity} to answer the question.",
-        f"To answer this, I should look up {entity} first.",
-        f"Let me search for {entity} to gather relevant facts.",
-        f"The question asks about {entity}. I will search for it.",
+        f"The question asks about \"{q_short}\". I need to look up \"{entity}\" to find relevant facts.",
+        f"To answer \"{q_short}\", I should search for \"{entity}\" first.",
+        f"Let me search for \"{entity}\" to gather information relevant to the question.",
+        f"I need information about \"{entity}\" to answer the question about {q_short}.",
+        f"Searching for \"{entity}\" should help me answer this question.",
     ]
     return random.choice(templates)
 
@@ -73,19 +96,22 @@ def make_search_thought(question: str, entity: str, step_idx: int) -> str:
 def make_read_thought(entity: str, doc_snippet: str) -> str:
     snippet = doc_snippet[:120].rstrip() + ("..." if len(doc_snippet) > 120 else "")
     templates = [
-        f"I found a document about {entity}. It states: \"{snippet}\"",
-        f"The document on {entity} provides: \"{snippet}\"",
-        f"Reading about {entity}: \"{snippet}\"",
+        f"The search returned a document about \"{entity}\". It states: \"{snippet}\". Let me read it fully.",
+        f"I found a result for \"{entity}\". The document says: \"{snippet}\".",
+        f"Reading the document about \"{entity}\": \"{snippet}\".",
+        f"The document on \"{entity}\" provides relevant details: \"{snippet}\".",
     ]
     return random.choice(templates)
 
 
 def make_answer_thought(question: str, answer: str, entities: list[str]) -> str:
-    entity_str = " and ".join(entities) if entities else "the retrieved documents"
+    entity_str = " and ".join(f'"{e}"' for e in entities) if entities else "the retrieved documents"
+    q_short = question.strip().rstrip("?")
     templates = [
-        f"Based on the information gathered about {entity_str}, the answer to the question is clear.",
-        f"After reviewing documents on {entity_str}, I can now answer confidently.",
-        f"The documents about {entity_str} together provide the answer.",
+        f"Based on information gathered about {entity_str}, I can now answer the question \"{q_short}\".",
+        f"After reading documents about {entity_str}, the answer to \"{q_short}\" is clear.",
+        f"The documents about {entity_str} together answer the question \"{q_short}\".",
+        f"I have enough information from {entity_str} to confidently answer \"{q_short}\".",
     ]
     return random.choice(templates)
 
