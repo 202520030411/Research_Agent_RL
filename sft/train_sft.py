@@ -93,7 +93,7 @@ def main():
         per_device_eval_batch_size=tcfg["per_device_eval_batch_size"],
         gradient_accumulation_steps=tcfg["gradient_accumulation_steps"],
         learning_rate=tcfg["learning_rate"],
-        warmup_ratio=tcfg["warmup_ratio"],
+        warmup_steps=tcfg["warmup_steps"],
         lr_scheduler_type=tcfg["lr_scheduler_type"],
         logging_steps=tcfg["logging_steps"],
         eval_steps=tcfg["eval_steps"],
