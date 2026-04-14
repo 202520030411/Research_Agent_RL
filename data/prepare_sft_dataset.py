@@ -32,8 +32,8 @@ def load_config(config_path: str = "config.yaml") -> dict:
 
 def extract_supporting_titles(example: dict) -> list[str]:
     """Return the titles of paragraphs marked as supporting facts."""
-    supporting = {fact[0] for fact in example["supporting_facts"]["title"]}
-    return list(supporting)
+    # supporting_facts["title"] is already a list of title strings — no indexing needed
+    return list(set(example["supporting_facts"]["title"]))
 
 
 def build_search_query(question: str, entity_hint: str) -> str:
