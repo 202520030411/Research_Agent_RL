@@ -292,7 +292,10 @@ class ResearchAgent:
 
             action     = parsed.get("action", "answer")
             thought    = parsed.get("thought", "")
-            confidence = float(parsed.get("confidence", 0.5))
+            try:
+                confidence = float(parsed.get("confidence", 0.5))
+            except (TypeError, ValueError):
+                confidence = 0.5
 
             rec = StepRecord(
                 step_idx=step_idx,

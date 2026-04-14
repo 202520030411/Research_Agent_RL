@@ -49,10 +49,16 @@ from rl.grpo_rewards import (
 
 @dataclass
 class TurnRecord:
-    """One LLM turn: the generated text and its token span in the full sequence."""
+    """One LLM turn: the generated text and its character span in full_text.
+
+    Character offsets (not token offsets) are the source of truth. Token
+    positions are resolved later from the tokenizer's offset_mapping on the
+    full trajectory — this avoids the fragment-tokenization drift that
+    independent per-turn tokenization would introduce.
+    """
     text:       str
-    token_start: int   # index in the full concatenated token sequence
-    token_end:   int
+    char_start: int   # byte/char index in Episode.full_text (inclusive)
+    char_end:   int   # exclusive
 
 
 @dataclass
@@ -152,40 +158,54 @@ def collect_episode(
 ) -> Episode:
     """
     Run one interactive episode with real tool calls.
-    Returns an Episode with the full trajectory text and turn token spans.
+    Returns an Episode with the full trajectory text and per-turn char spans.
     """
     history: list[dict] = []
-    full_parts: list[str] = []   # alternating: [prompt, step1, obs1, step2, ...]
     turn_records: list[TurnRecord] = []
     pred_answer = ""
-    token_cursor = 0
+
+    # Build the base prompt once — it's the prefix of every turn's input and
+    # also the prefix of the final full_text we score.
+    base_prompt = tokenizer.apply_chat_template(
+        [{"role": "system", "content": system_prompt},
+         {"role": "user",   "content": f"Question: {question}"}],
+        tokenize=False, add_generation_prompt=True,
+    )
+
+    # full_text is grown as we go; char offsets into it are the source of truth
+    # for which spans count as "LLM-generated" during loss computation.
+    full_text = base_prompt
 
     for step_idx in range(max_steps):
         prompt = _build_turn_prompt(question, history, tokenizer, system_prompt, step_idx)
 
-        # Tokenise the prompt up to this point for generation
         enc = tokenizer(prompt, return_tensors="pt").to(device)
         out_ids = model.generate(
             **enc,
             max_new_tokens=max_new_tokens,
             temperature=temperature,
             do_sample=True,
+            eos_token_id=tokenizer.eos_token_id,
             pad_token_id=tokenizer.eos_token_id,
         )
         new_ids = out_ids[0][enc["input_ids"].shape[1]:]
         raw_step_text = tokenizer.decode(new_ids, skip_special_tokens=True).strip()
         step_text, step_json = _canonicalize_step_output(raw_step_text)
 
-        # Track token span for this LLM turn in the FULL sequence
-        # (computed after full concatenation, approximated here via re-tokenisation)
+        # Record the char span of this LLM turn inside full_text BEFORE we
+        # append the trailing newline / observation, so char_end points
+        # exactly one past the final generated character.
+        char_start = len(full_text)
+        full_text += step_text
+        char_end = len(full_text)
         turn_records.append(TurnRecord(
             text=step_text,
-            token_start=token_cursor,  # will be recalculated after concat
-            token_end=token_cursor,
+            char_start=char_start,
+            char_end=char_end,
         ))
-        full_parts.append(step_text + "\n")
+        full_text += "\n"
 
-        action    = step_json.get("action", "answer")
+        action = step_json.get("action", "answer")
 
         if action == "answer" or not action:
             pred_answer = step_json.get("answer", "")
@@ -196,47 +216,17 @@ def collect_episode(
             history.append({"step_json": step_json, "observation": ""})
             break
 
-        # Execute real tool
         observation = ""
         if action == "search":
-            query      = step_json.get("query", question)
+            query = step_json.get("query", question)
             observation = tool_executor.search(query)
         elif action == "read":
-            doc        = step_json.get("document", "")
+            doc = step_json.get("document", "")
             observation = tool_executor.read(doc)
 
         history.append({"step_json": step_json, "observation": observation})
         if observation:
-            full_parts.append(f"\nObservation: {observation[:300]}\n")
-
-    # Build full trajectory text
-    from data.sft_dataset import SYSTEM_PROMPT as SYS
-    base_prompt = tokenizer.apply_chat_template(
-        [{"role": "system", "content": system_prompt},
-         {"role": "user",   "content": f"Question: {question}"}],
-        tokenize=False, add_generation_prompt=True,
-    )
-    full_text = base_prompt + "".join(full_parts)
-
-    # Recompute token spans by tokenising the full text
-    full_enc = tokenizer(full_text, return_tensors="pt")
-    prompt_enc = tokenizer(base_prompt, return_tensors="pt")
-    prompt_len = prompt_enc["input_ids"].shape[1]
-
-    # Walk through parts to find each turn's token span
-    running_text = base_prompt
-    cursor = prompt_len
-    for i, rec in enumerate(turn_records):
-        turn_enc  = tokenizer(rec.text, return_tensors="pt")
-        turn_len  = turn_enc["input_ids"].shape[1]
-        rec.token_start = cursor
-        rec.token_end   = cursor + turn_len
-        cursor   += turn_len
-        # Skip observation tokens
-        if i < len(history) and history[i].get("observation"):
-            obs_text = f"\nObservation: {history[i]['observation'][:300]}\n"
-            obs_enc  = tokenizer(obs_text, return_tensors="pt")
-            cursor  += obs_enc["input_ids"].shape[1]
+            full_text += f"\nObservation: {observation[:300]}\n"
 
     correct = bool(pred_answer) and _check_correct(pred_answer, gold_answer)
 
@@ -267,6 +257,9 @@ def _check_correct(pred: str, gold: str) -> bool:
 # Log-prob computation (single forward pass over full trajectory)
 # ---------------------------------------------------------------------------
 
+MAX_TRAJECTORY_TOKENS = 2048
+
+
 def compute_trajectory_log_probs(
     model,
     tokenizer,
@@ -276,45 +269,62 @@ def compute_trajectory_log_probs(
     """
     Compute the sum of log-probs of LLM-generated tokens in this episode.
 
-    We run ONE forward pass over the full concatenated trajectory and extract
-    the log-probs only at positions where the LLM generated tokens (masking
-    out the prompt and tool observation tokens).
+    One forward pass over the full trajectory; log-probs are extracted only at
+    positions inside a turn's char span. Char→token resolution uses the
+    tokenizer's offset_mapping, which is the only reliable way to align a
+    subrange of the full text with its tokens (fragment-tokenization drifts).
 
-    Returns a scalar tensor (requires_grad=True) — the sum of
-    log π_θ(a_t | context_t) over all generated tokens.
+    Returns a scalar tensor (requires_grad=True).
     """
     enc = tokenizer(
         episode.full_text,
         return_tensors="pt",
         truncation=True,
-        max_length=1024,
-    ).to(device)
-
-    input_ids = enc["input_ids"]           # (1, T)
+        max_length=MAX_TRAJECTORY_TOKENS,
+        return_offsets_mapping=True,
+    )
+    input_ids     = enc["input_ids"].to(device)            # (1, T)
+    offset_map    = enc["offset_mapping"][0].tolist()      # [(c_start, c_end), ...]
     T = input_ids.shape[1]
 
-    # Build generation mask: 1 at LLM-generated token positions, 0 elsewhere
+    # Warn once per overlong episode — signals that max_length needs raising or
+    # max_steps/obs clipping tightening. Loss still computes on surviving turns.
+    orig_len = len(tokenizer(episode.full_text, add_special_tokens=True)["input_ids"])
+    if orig_len > MAX_TRAJECTORY_TOKENS:
+        print(
+            f"[grpo] trajectory truncated {orig_len} → {T} tokens; "
+            f"turns beyond the cap will be dropped from loss",
+            flush=True,
+        )
+
+    # Build generation mask via char-span overlap with each token's offset_mapping.
+    # A token belongs to a turn iff its char span intersects the turn's char span.
+    # Note: special tokens report (0, 0) in offset_mapping and will correctly
+    # fail to intersect any turn (turns always have char_end > char_start).
     gen_mask = torch.zeros(T, dtype=torch.bool, device=device)
-    for rec in episode.turns:
-        s = min(rec.token_start, T - 1)
-        e = min(rec.token_end,   T)
-        if e > s:
-            gen_mask[s:e] = True
+    turn_spans = [(rec.char_start, rec.char_end) for rec in episode.turns]
+    for t_idx, (tok_cs, tok_ce) in enumerate(offset_map):
+        if tok_ce <= tok_cs:
+            continue  # special / padding token
+        for ts, te in turn_spans:
+            if tok_cs < te and tok_ce > ts:
+                gen_mask[t_idx] = True
+                break
 
-    # Forward pass
     with torch.enable_grad():
-        outputs    = model(input_ids=input_ids)
-        logits     = outputs.logits[0]          # (T, V)
-        log_probs  = F.log_softmax(logits, dim=-1)
+        outputs   = model(input_ids=input_ids)
+        logits    = outputs.logits[0]                       # (T, V)
+        log_probs = F.log_softmax(logits, dim=-1)
 
-        # Shift: log_prob[t] = log P(token[t+1] | token[0..t])
-        shift_log_probs = log_probs[:-1]        # (T-1, V)
-        shift_targets   = input_ids[0, 1:]      # (T-1,)
-        shift_mask      = gen_mask[1:]          # (T-1,)
+        # log_prob[t] predicts token[t+1] given token[0..t], so the target at
+        # position t is input_ids[t+1] and it counts if token[t+1] is generated.
+        shift_log_probs = log_probs[:-1]                    # (T-1, V)
+        shift_targets   = input_ids[0, 1:]                  # (T-1,)
+        shift_mask      = gen_mask[1:]                      # (T-1,)
 
         token_log_probs = shift_log_probs[
             torch.arange(T - 1, device=device), shift_targets
-        ]                                        # (T-1,)
+        ]                                                   # (T-1,)
 
         return (token_log_probs * shift_mask.float()).sum()
 

@@ -110,7 +110,10 @@ def parse_trace(completion: str) -> dict:
 
     for obj in objs:
         action = obj.get("action", "")
-        conf = float(obj.get("confidence", 0.5))
+        try:
+            conf = float(obj.get("confidence", 0.5))
+        except (TypeError, ValueError):
+            conf = 0.5
         confidences.append(conf)
         steps.append(obj)
         if action == "answer":

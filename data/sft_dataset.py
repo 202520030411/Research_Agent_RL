@@ -68,27 +68,19 @@ def find_assistant_token_span(
     Return (start, end) indices of the assistant content tokens so we can mask
     everything before them with IGNORE_INDEX.
 
-    Strategy: encode the system+user prefix, then the assistant start marker.
-    The assistant content begins right after the assistant start marker.
+    Returns (-1, -1) if the assistant marker is not found (e.g. truncation cut
+    it off) — caller must skip the sample rather than train on prompt tokens.
     """
-    # Encode just the assistant start marker; we'll find it in the full sequence.
     assistant_start_marker = "<|im_start|>assistant"
     marker_ids = tokenizer.encode(assistant_start_marker, add_special_tokens=False)
 
-    # Search for last occurrence (the assistant turn, not system/user)
     n = len(input_ids)
     m = len(marker_ids)
-    start_pos = -1
     for i in range(n - m, -1, -1):
         if input_ids[i : i + m] == marker_ids:
-            start_pos = i + m  # content starts after the marker
-            break
+            return i + m, n
 
-    if start_pos == -1:
-        # Fallback: mask nothing (train on full sequence)
-        return 0, n
-
-    return start_pos, n
+    return -1, -1
 
 
 class SFTTraceDataset(Dataset):
@@ -144,8 +136,13 @@ class SFTTraceDataset(Dataset):
         # Build labels: mask everything before the assistant content
         labels = [IGNORE_INDEX] * len(input_ids)
         asst_start, asst_end = find_assistant_token_span(input_ids, self.tokenizer)
-        for i in range(asst_start, asst_end):
-            labels[i] = input_ids[i]
+        if asst_start == -1:
+            # Assistant marker was truncated away — everything stays masked so
+            # the sample contributes zero loss instead of training on the prompt.
+            pass
+        else:
+            for i in range(asst_start, asst_end):
+                labels[i] = input_ids[i]
 
         return {
             "input_ids": torch.tensor(input_ids, dtype=torch.long),
