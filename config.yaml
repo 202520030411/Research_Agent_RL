@@ -1,6 +1,6 @@
 model:
   name: "Qwen/Qwen2.5-0.5B-Instruct"
-  max_seq_length: 2048
+  max_seq_length: 1024
   torch_dtype: "float16"
 
 quantization:
@@ -40,9 +40,9 @@ dataset:
 training:
   output_dir: "checkpoints/qwen-sft"
   num_train_epochs: 3
-  per_device_train_batch_size: 4
-  per_device_eval_batch_size: 4
-  gradient_accumulation_steps: 4
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 8
   learning_rate: 2.0e-4
   warmup_steps: 75
   lr_scheduler_type: "cosine"
