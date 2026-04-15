@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Week 2 baseline evaluation")
     p.add_argument("--adapter",      default="checkpoints/qwen-sft/final",
                    help="Path to SFT LoRA adapter directory")
-    p.add_argument("--n_questions",  type=int, default=200,
+    p.add_argument("--n_questions",  type=int, default=100,
                    help="Number of HotpotQA val questions to evaluate")
     p.add_argument("--max_steps",    type=int, default=6,
                    help="Hard cap on steps per question")
@@ -135,7 +135,6 @@ def main():
     policies = {
         "FixedStep (N=2)":           FixedStepPolicy(max_steps=2),
         "FixedStep (N=3)":           FixedStepPolicy(max_steps=3),
-        "Confidence (τ=0.75)":       ConfidencePolicy(threshold=0.75),
         "Confidence (τ=0.85)":       ConfidencePolicy(threshold=0.85),
         "NeverStop (oracle steps)":  NeverStop(),
     }
