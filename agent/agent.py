@@ -21,7 +21,7 @@ from agent.tools import ToolExecutor
 from agent.stopping import StoppingPolicy
 from data.sft_dataset import SYSTEM_PROMPT
 
-MAX_NEW_TOKENS = 400
+MAX_NEW_TOKENS = 150
 TEMPERATURE    = 0.1
 
 
