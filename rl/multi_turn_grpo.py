@@ -370,6 +370,86 @@ def collect_episodes_batched(
     return episodes
 
 
+@torch.no_grad()
+def filter_learnable_questions(
+    questions:     list[dict],
+    model,
+    tokenizer,
+    tool_executor,
+    system_prompt: str,
+    K:             int  = 3,
+    max_steps:     int  = 3,
+    min_correct:   int  = 1,
+    max_correct:   int | None = None,
+    device:        str  = "cuda",
+    verbose:       bool = True,
+) -> list[dict]:
+    """
+    Keep only questions where the model's rollout accuracy is in a target zone.
+
+    For each question, runs K parallel rollouts (batched, real tools) and
+    counts how many produce a correct answer. A question is kept iff
+    `min_correct <= n_correct <= max_correct`.
+
+    Defaults (K=3, min=1, max=2) implement the "not too easy, not too hard"
+    learnable zone: rollouts disagree, so GRPO advantage normalisation
+    produces a non-zero gradient signal instead of a tied group.
+
+    Args:
+        questions    : list of {"question": str, "answer": str} dicts
+        K            : rollouts per question (default 3)
+        max_steps    : cap on tool-call steps per rollout
+        min_correct  : lower bound on correct rollouts (inclusive)
+        max_correct  : upper bound on correct rollouts (inclusive, default K-1)
+        verbose      : print progress every 25 questions
+
+    Returns a list of the kept question dicts, each with extra fields
+    `_n_correct` and `_K` recording the filter decision for inspection.
+    """
+    if max_correct is None:
+        max_correct = K - 1
+
+    kept: list[dict] = []
+    n_total = len(questions)
+    zone_counts = {k: 0 for k in range(K + 1)}
+
+    model.eval()
+    for idx, q in enumerate(questions):
+        episodes = collect_episodes_batched(
+            question=q["question"],
+            gold_answer=q.get("answer", ""),
+            model=model,
+            tokenizer=tokenizer,
+            tool_executor=tool_executor,
+            system_prompt=system_prompt,
+            G=K,
+            max_steps=max_steps,
+            device=device,
+        )
+        n_correct = sum(int(ep.correct) for ep in episodes)
+        zone_counts[n_correct] += 1
+
+        if min_correct <= n_correct <= max_correct:
+            kept.append({**q, "_n_correct": n_correct, "_K": K})
+
+        if verbose and (idx + 1) % 25 == 0:
+            print(
+                f"  [{idx + 1:4d}/{n_total}]  kept={len(kept):4d}  "
+                f"zone_hist={dict(zone_counts)}",
+                flush=True,
+            )
+
+    if verbose:
+        pct = 100.0 * len(kept) / max(n_total, 1)
+        print(
+            f"filter: kept {len(kept)}/{n_total} ({pct:.1f}%) "
+            f"in zone [{min_correct},{max_correct}]/{K}   "
+            f"full histogram: {dict(zone_counts)}",
+            flush=True,
+        )
+    return kept
+
+
 def _check_correct(pred: str, gold: str) -> bool:
     import string, unicodedata, re
     def norm(s):
