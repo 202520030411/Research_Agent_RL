@@ -19,7 +19,7 @@ import zipfile
 from pathlib import Path
 
 KAGGLE_USERNAME = "wuyue22"
-KERNEL_SLUG     = f"{KAGGLE_USERNAME}/rl-sft-research"
+KERNEL_SLUG     = f"{KAGGLE_USERNAME}/week1-sft"
 DOWNLOAD_DIR    = Path("checkpoints/kaggle_output")
 FINAL_DIR       = Path("checkpoints/qwen-sft/final")
 
@@ -70,7 +70,32 @@ def download_kernel_output() -> Path | None:
     return DOWNLOAD_DIR
 
 
+def _resolve_adapter_source(output_path: Path) -> Path:
+    """
+    Locate the actual adapter directory inside an extracted Kaggle output tree.
+    """
+    candidates = [
+        output_path / "Research_Agent_RL" / "checkpoints" / "qwen-sft" / "final",
+        output_path / "qwen-sft-adapter",
+        output_path / "checkpoints" / "qwen-sft" / "final",
+        output_path,
+    ]
+    for candidate in candidates:
+        if (candidate / "adapter_config.json").exists():
+            return candidate
+
+    matches = list(output_path.rglob("adapter_config.json"))
+    for match in matches:
+        parent = match.parent
+        if any(parent.glob("adapter_model*.safetensors")):
+            return parent
+
+    return output_path
+
+
 def extract_checkpoint(output_path: Path) -> bool:
+    if FINAL_DIR.exists():
+        shutil.rmtree(FINAL_DIR)
     FINAL_DIR.mkdir(parents=True, exist_ok=True)
 
     if output_path.is_file() and output_path.suffix == ".zip":
@@ -86,10 +111,11 @@ def extract_checkpoint(output_path: Path) -> bool:
                 for name in names:
                     zf.extract(name, FINAL_DIR)
     else:
-        print(f"\nCopying files from {output_path} → {FINAL_DIR}")
-        for f in output_path.rglob("*"):
+        source_dir = _resolve_adapter_source(output_path)
+        print(f"\nCopying files from {source_dir} → {FINAL_DIR}")
+        for f in source_dir.rglob("*"):
             if f.is_file():
-                dest = FINAL_DIR / f.relative_to(output_path)
+                dest = FINAL_DIR / f.relative_to(source_dir)
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(f, dest)
 
