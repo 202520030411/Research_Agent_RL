@@ -467,7 +467,7 @@ def _check_correct(pred: str, gold: str) -> bool:
 # Log-prob computation (single forward pass over full trajectory)
 # ---------------------------------------------------------------------------
 
-MAX_TRAJECTORY_TOKENS = 2048
+MAX_TRAJECTORY_TOKENS = 1536
 
 
 def compute_trajectory_log_probs(
@@ -569,10 +569,20 @@ def grpo_train_step(
     Returns a dict with loss and metrics.
     """
     model.train()
-    total_loss      = torch.tensor(0.0, device=device, requires_grad=True)
     total_correct   = 0
     total_steps     = 0
     total_episodes  = 0
+    running_loss    = 0.0
+
+    # Pre-count expected episodes so we can pre-scale each per-episode loss
+    # by 1/N. This lets us call .backward() per episode — the activations
+    # for that episode's forward pass are released immediately, so peak
+    # memory is ONE trajectory worth of activations instead of
+    # batch_size * G trajectories. Gradients accumulate in .grad in-place,
+    # and optimizer.step() runs once at the end.
+    n_expected = max(len(questions) * G, 1)
+
+    optimizer.zero_grad()
 
     for q in questions:
         question    = q["question"]
@@ -602,25 +612,35 @@ def grpo_train_step(
         r_std  = (sum((r - r_mean) ** 2 for r in rewards) / G) ** 0.5 + 1e-8
         advantages = [(r - r_mean) / r_std for r in rewards]
 
-        # --- Policy gradient loss ---
+        # --- Per-episode forward + backward: graph for each trajectory is
+        # released immediately after backward(), so peak VRAM stays O(1) in
+        # the number of rollouts instead of O(batch_size * G). ---
         for ep, adv in zip(group, advantages):
-            log_prob  = compute_trajectory_log_probs(model, tokenizer, ep, device)
-            total_loss = total_loss - log_prob * adv
+            if abs(adv) < 1e-8:
+                # Tied group — advantage is zero, gradient would be zero anyway.
+                # Skip the forward pass to save compute and memory.
+                total_correct  += int(ep.correct)
+                total_steps    += ep.n_steps
+                total_episodes += 1
+                continue
+
+            log_prob = compute_trajectory_log_probs(model, tokenizer, ep, device)
+            loss = -(log_prob * adv) / n_expected
+            loss.backward()
+            running_loss += loss.item()
 
             total_correct  += int(ep.correct)
             total_steps    += ep.n_steps
             total_episodes += 1
 
-    if total_episodes > 0:
-        total_loss = total_loss / total_episodes
+            del log_prob, loss
+            torch.cuda.empty_cache()
 
-    optimizer.zero_grad()
-    total_loss.backward()
     torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
     optimizer.step()
 
     return {
-        "loss":      total_loss.item(),
+        "loss":      running_loss,
         "accuracy":  total_correct / max(total_episodes, 1),
         "avg_steps": total_steps   / max(total_episodes, 1),
     }
