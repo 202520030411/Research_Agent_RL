@@ -156,11 +156,14 @@ def format_reward(completions: list[str], **kwargs) -> list[float]:
     """
     Reward for producing a well-structured agent trace.
 
+    Kept small relative to correctness_reward (max +1.0) so format cannot
+    dominate the learning signal when correctness is 0 across a group.
+
     Scoring:
-      +0.1  any valid JSON object in the output
-      +0.1  at least one step with required keys (thought, action, confidence)
-      +0.1  ends with an "answer" action
-    Max: 0.3
+      +0.03  any valid JSON object in the output
+      +0.03  at least one step with required keys (thought, action, confidence)
+      +0.04  ends with an "answer" action
+    Max: 0.10
     """
     rewards = []
     required_keys = {"thought", "action", "confidence"}
@@ -168,11 +171,11 @@ def format_reward(completions: list[str], **kwargs) -> list[float]:
         score = 0.0
         objs = _extract_json_objects(comp)
         if objs:
-            score += 0.1
+            score += 0.03
         if any(required_keys.issubset(o.keys()) for o in objs):
-            score += 0.1
+            score += 0.03
         if any(o.get("action") == "answer" for o in objs):
-            score += 0.1
+            score += 0.04
         rewards.append(score)
     return rewards
 

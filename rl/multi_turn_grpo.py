@@ -240,6 +240,136 @@ def collect_episode(
     )
 
 
+@torch.no_grad()
+def collect_episodes_batched(
+    question:      str,
+    gold_answer:   str,
+    model,
+    tokenizer,
+    tool_executor,
+    system_prompt: str,
+    G:             int = 2,
+    max_steps:     int = 3,
+    max_new_tokens: int = 150,
+    temperature:   float = 0.9,
+    device:        str = "cuda",
+) -> list[Episode]:
+    """
+    Run G parallel rollouts for one question in a single batched generate per step.
+
+    This is the key optimisation for multi-turn GRPO on a free-tier T4. The naive
+    loop calls `collect_episode` G times sequentially, which means G separate
+    `model.generate()` calls per step. Here we stack the G active contexts into
+    one padded batch and call generate ONCE per step — same wall-time as a
+    single-turn rollout.
+
+    Rollouts terminate independently when they emit `action: "answer"`. Finished
+    rollouts are dropped from the batch; active ones continue until max_steps.
+
+    Returns a list of G Episodes with correct char spans in each `full_text`.
+    """
+    base_prompt = tokenizer.apply_chat_template(
+        [{"role": "system", "content": system_prompt},
+         {"role": "user",   "content": f"Question: {question}"}],
+        tokenize=False, add_generation_prompt=True,
+    )
+
+    histories:   list[list[dict]]        = [[] for _ in range(G)]
+    full_texts:  list[str]               = [base_prompt for _ in range(G)]
+    turn_lists:  list[list[TurnRecord]]  = [[] for _ in range(G)]
+    pred_answers: list[str]              = ["" for _ in range(G)]
+    done:        list[bool]              = [False] * G
+
+    # Batched generate requires left-padding so every prompt's last real token
+    # sits at the rightmost position — otherwise the model continues from pad
+    # tokens on short rows. Save and restore to avoid leaking this into eval.
+    orig_padding_side = tokenizer.padding_side
+    tokenizer.padding_side = "left"
+    pad_id = tokenizer.pad_token_id or tokenizer.eos_token_id
+
+    try:
+        for step_idx in range(max_steps):
+            active = [i for i in range(G) if not done[i]]
+            if not active:
+                break
+
+            prompts = [
+                _build_turn_prompt(question, histories[i], tokenizer, system_prompt, step_idx)
+                for i in active
+            ]
+
+            enc = tokenizer(
+                prompts,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=MAX_TRAJECTORY_TOKENS,
+            ).to(device)
+
+            out_ids = model.generate(
+                **enc,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                do_sample=True,
+                eos_token_id=tokenizer.eos_token_id,
+                pad_token_id=pad_id,
+            )
+            prompt_len = enc["input_ids"].shape[1]
+            new_ids = out_ids[:, prompt_len:]  # (B, new_T)
+
+            for b, i in enumerate(active):
+                raw_step_text = tokenizer.decode(new_ids[b], skip_special_tokens=True).strip()
+                step_text, step_json = _canonicalize_step_output(raw_step_text)
+
+                char_start = len(full_texts[i])
+                full_texts[i] += step_text
+                char_end = len(full_texts[i])
+                turn_lists[i].append(TurnRecord(
+                    text=step_text, char_start=char_start, char_end=char_end,
+                ))
+                full_texts[i] += "\n"
+
+                action = step_json.get("action", "answer")
+
+                if action == "answer" or not action:
+                    pred = step_json.get("answer", "")
+                    if not pred:
+                        import re
+                        m = re.search(r'"answer"\s*:\s*"([^"]+)"', raw_step_text)
+                        pred = m.group(1) if m else step_text[:80]
+                    pred_answers[i] = pred
+                    histories[i].append({"step_json": step_json, "observation": ""})
+                    done[i] = True
+                    continue
+
+                observation = ""
+                if action == "search":
+                    query = step_json.get("query", question)
+                    observation = tool_executor.search(query)
+                elif action == "read":
+                    doc = step_json.get("document", "")
+                    observation = tool_executor.read(doc)
+
+                histories[i].append({"step_json": step_json, "observation": observation})
+                if observation:
+                    full_texts[i] += f"\nObservation: {observation[:300]}\n"
+    finally:
+        tokenizer.padding_side = orig_padding_side
+
+    episodes: list[Episode] = []
+    for i in range(G):
+        correct = bool(pred_answers[i]) and _check_correct(pred_answers[i], gold_answer)
+        episodes.append(Episode(
+            question=question,
+            gold_answer=gold_answer,
+            turns=turn_lists[i],
+            full_text=full_texts[i],
+            correct=correct,
+            n_steps=len(histories[i]),
+        ))
+    return episodes
+
+
 def _check_correct(pred: str, gold: str) -> bool:
     import string, unicodedata, re
     def norm(s):
@@ -340,8 +470,8 @@ def grpo_train_step(
     tool_executor,
     optimizer:    torch.optim.Optimizer,
     system_prompt: str,
-    G:            int   = 4,
-    max_steps:    int   = 5,
+    G:            int   = 2,
+    max_steps:    int   = 3,
     alpha:        float = 0.1,
     beta:         float = 0.05,
     epsilon:      float = 0.05,
@@ -368,16 +498,14 @@ def grpo_train_step(
         question    = q["question"]
         gold_answer = q.get("answer", "")
 
-        # --- Collect G episodes ---
-        group: list[Episode] = []
-        for _ in range(G):
-            ep = collect_episode(
-                question, gold_answer, model, tokenizer, tool_executor,
-                system_prompt=system_prompt,
-                max_steps=max_steps,
-                device=device,
-            )
-            group.append(ep)
+        # --- Collect G episodes in ONE batched generate per step ---
+        group: list[Episode] = collect_episodes_batched(
+            question, gold_answer, model, tokenizer, tool_executor,
+            system_prompt=system_prompt,
+            G=G,
+            max_steps=max_steps,
+            device=device,
+        )
 
         # --- Score ---
         completions = [ep.full_text for ep in group]
@@ -431,10 +559,10 @@ def train(
     system_prompt:   str,
     output_dir:      str = "checkpoints/mt-grpo",
     n_epochs:        int = 30,
-    batch_size:      int = 2,     # questions per update (G=4 → 8 episodes/update)
-    G:               int = 4,
+    batch_size:      int = 2,     # questions per update (G=2 → 4 episodes/update)
+    G:               int = 2,
     lr:              float = 5e-6,
-    max_steps:       int = 5,
+    max_steps:       int = 3,
     alpha:           float = 0.1,
     beta:            float = 0.05,
     epsilon:         float = 0.05,
