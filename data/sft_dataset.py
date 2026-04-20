@@ -1,7 +1,8 @@
 """
 SFT Dataset: tokenizes reasoning traces into model input format.
 
-Each JSONL record is converted into a chat-formatted string:
+Format matches agent inference exactly:
+
   <|im_start|>system
   You are a research agent ...
   <|im_end|>
@@ -9,24 +10,28 @@ Each JSONL record is converted into a chat-formatted string:
   Question: {question}
   <|im_end|>
   <|im_start|>assistant
-  Step 1: {"thought": ..., "action": "search", ...}
-  Step 2: {"thought": ..., "action": "read", ...}
-  ...
-  Step N: {"thought": ..., "action": "answer", ...}
+  Step 1: {"thought": ..., "action": "search", "query": ..., "confidence": ...}
+  Observation: [doc_00042] Title :: snippet...
+  Step 2: {"thought": ..., "action": "read", "document": "doc_00042", ...}
+  Observation: <full document text>
+  Step 3: {"thought": ..., "action": "answer", "answer": ..., "confidence": ...}
   <|im_end|>
 
-Loss is computed ONLY on the assistant turn tokens (instruction masking).
-All system + user tokens are masked with IGNORE_INDEX = -100.
+Loss masking:
+  - System + user tokens -> IGNORE_INDEX
+  - Observation: ... lines -> IGNORE_INDEX (environment output, not model output)
+  - Step N: {...} lines -> kept (this is what the model learns to generate)
 """
 
 import json
-from pathlib import Path
+from typing import Optional
 
 import torch
 from torch.utils.data import Dataset
 from transformers import PreTrainedTokenizer
 
 IGNORE_INDEX = -100
+OBS_PREVIEW = 300  # chars of observation exposed in the trace
 
 SYSTEM_PROMPT = (
     "You are a research agent. Given a question, reason step by step and use "
@@ -37,50 +42,71 @@ SYSTEM_PROMPT = (
 )
 
 
+def _strip_observation(step: dict) -> dict:
+    return {k: v for k, v in step.items() if k != "observation"}
+
+
 def format_trace_as_text(trace: list[dict]) -> str:
-    """Convert a list of step dicts into the assistant response string."""
+    """
+    Render a trace as assistant content with Observation: lines after
+    search/read steps. The observation field is pulled out of each step dict
+    and rendered as a separate line -- it is not part of the JSON the model
+    generates.
+    """
     lines = []
     for i, step in enumerate(trace, start=1):
-        lines.append(f"Step {i}: {json.dumps(step)}")
+        step_json = _strip_observation(step)
+        lines.append(f"Step {i}: {json.dumps(step_json)}")
+        obs = step.get("observation")
+        if obs:
+            lines.append(f"Observation: {obs[:OBS_PREVIEW]}")
     return "\n".join(lines)
 
 
-def build_chat_string(question: str, trace: list[dict], tokenizer: PreTrainedTokenizer) -> str:
-    """Build the full chat-formatted string using the tokenizer's chat template."""
+def build_chat_string(
+    question: str,
+    trace: list[dict],
+    tokenizer: PreTrainedTokenizer,
+) -> tuple[str, str]:
+    """
+    Return (full_chat_string, assistant_content_string).
+
+    The second value is the exact substring of the first that contains the
+    assistant turn's content -- used to compute observation char spans.
+    """
+    assistant_content = format_trace_as_text(trace)
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": f"Question: {question}"},
-        {"role": "assistant", "content": format_trace_as_text(trace)},
+        {"role": "assistant", "content": assistant_content},
     ]
-    # apply_chat_template with tokenize=False gives us the raw string
-    return tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=False,
+    full = tokenizer.apply_chat_template(
+        messages, tokenize=False, add_generation_prompt=False
     )
+    return full, assistant_content
 
 
-def find_assistant_token_span(
-    input_ids: list[int],
-    tokenizer: PreTrainedTokenizer,
-) -> tuple[int, int]:
+def compute_observation_char_spans(
+    assistant_content: str,
+    asst_start_in_full: int,
+) -> list[tuple[int, int]]:
     """
-    Return (start, end) indices of the assistant content tokens so we can mask
-    everything before them with IGNORE_INDEX.
+    Return char spans [start, end) in the FULL chat string that fall inside
+    Observation: lines (including the "Observation: " prefix itself) -- these
+    tokens will be masked from the loss.
 
-    Returns (-1, -1) if the assistant marker is not found (e.g. truncation cut
-    it off) — caller must skip the sample rather than train on prompt tokens.
+    `asst_start_in_full` is the char index where assistant content begins
+    inside the full chat string.
     """
-    assistant_start_marker = "<|im_start|>assistant"
-    marker_ids = tokenizer.encode(assistant_start_marker, add_special_tokens=False)
-
-    n = len(input_ids)
-    m = len(marker_ids)
-    for i in range(n - m, -1, -1):
-        if input_ids[i : i + m] == marker_ids:
-            return i + m, n
-
-    return -1, -1
+    spans = []
+    offset = 0
+    for line in assistant_content.split("\n"):
+        if line.startswith("Observation:"):
+            start = asst_start_in_full + offset
+            end = start + len(line)
+            spans.append((start, end))
+        offset += len(line) + 1  # +1 for the '\n' separator
+    return spans
 
 
 class SFTTraceDataset(Dataset):
@@ -88,9 +114,9 @@ class SFTTraceDataset(Dataset):
     Loads a JSONL file of reasoning traces and tokenizes them on-the-fly.
 
     Each item returns:
-      input_ids  : (seq_len,) LongTensor
-      labels     : (seq_len,) LongTensor  — IGNORE_INDEX everywhere except assistant turn
-      attention_mask: (seq_len,) LongTensor
+      input_ids      : (seq_len,) LongTensor
+      labels         : (seq_len,) LongTensor -- IGNORE_INDEX on prompt + observations
+      attention_mask : (seq_len,) LongTensor
     """
 
     def __init__(
@@ -120,7 +146,19 @@ class SFTTraceDataset(Dataset):
         question = record["question"]
         trace = record["trace"]
 
-        full_text = build_chat_string(question, trace, self.tokenizer)
+        full_text, assistant_content = build_chat_string(
+            question, trace, self.tokenizer
+        )
+
+        # Locate assistant content's char offset inside the full chat string.
+        asst_start_char = full_text.find(assistant_content)
+        if asst_start_char < 0:
+            # Chat template mangled the content somehow; fall back to training
+            # on everything (rare; prior behavior).
+            asst_start_char = 0
+        asst_end_char = asst_start_char + len(assistant_content)
+
+        obs_spans = compute_observation_char_spans(assistant_content, asst_start_char)
 
         encoding = self.tokenizer(
             full_text,
@@ -128,21 +166,24 @@ class SFTTraceDataset(Dataset):
             max_length=self.max_length,
             padding=False,
             return_tensors=None,
+            return_offsets_mapping=True,
         )
-
         input_ids = encoding["input_ids"]
         attention_mask = encoding["attention_mask"]
+        offsets = encoding["offset_mapping"]
 
-        # Build labels: mask everything before the assistant content
         labels = [IGNORE_INDEX] * len(input_ids)
-        asst_start, asst_end = find_assistant_token_span(input_ids, self.tokenizer)
-        if asst_start == -1:
-            # Assistant marker was truncated away — everything stays masked so
-            # the sample contributes zero loss instead of training on the prompt.
-            pass
-        else:
-            for i in range(asst_start, asst_end):
-                labels[i] = input_ids[i]
+        for i, (c0, c1) in enumerate(offsets):
+            if c0 == c1:
+                continue  # special tokens with empty spans
+            # Keep tokens strictly inside the assistant content...
+            if c0 < asst_start_char or c1 > asst_end_char:
+                continue
+            # ...but drop any that fall inside an Observation: line.
+            in_obs = any(c0 < end and c1 > start for start, end in obs_spans)
+            if in_obs:
+                continue
+            labels[i] = input_ids[i]
 
         return {
             "input_ids": torch.tensor(input_ids, dtype=torch.long),

@@ -18,6 +18,9 @@ lora:
     - "k_proj"
     - "v_proj"
     - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
   lora_dropout: 0.05
   bias: "none"
   task_type: "CAUSAL_LM"
@@ -39,7 +42,7 @@ dataset:
 
 training:
   output_dir: "checkpoints/qwen-sft"
-  num_train_epochs: 3
+  num_train_epochs: 5
   per_device_train_batch_size: 2
   per_device_eval_batch_size: 2
   gradient_accumulation_steps: 8
