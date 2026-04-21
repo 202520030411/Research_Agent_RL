@@ -1,10 +1,16 @@
 """
 Prepare SFT dataset from HotpotQA.
 
-Each HotpotQA example is turned into a multi-step trace that uses the REAL
-`ToolExecutor.search()` and `ToolExecutor.read()` so the model trains on the
-same observations it will see at inference. Examples where BM25 does not
-retrieve the supporting document are dropped.
+Each HotpotQA example is turned into a multi-step trace that uses a REAL
+ToolExecutor call, so the model trains on the same Observation: format it
+sees at inference.
+
+Retrieval strategy (fast version):
+  For each HotpotQA example we build a tiny `ToolExecutor` over that
+  example's own 10 candidate paragraphs (2 gold + 8 distractor) and run
+  `search()` on it. That's 10 docs, not 90,000, so BM25 is O(tens of us).
+  The val-split *global* index is still built + saved to disk so Weeks 2/3
+  can reuse it at inference.
 
 Output JSONL format per line:
   {
@@ -19,8 +25,11 @@ Output JSONL format per line:
     ]
   }
 
-`document` in the read step is a short reference (doc_id or title) — the full
-text lives in `observation`.
+`document` in the read step is a short reference (doc_id) -- full text is in
+`observation`.
+
+Traces are flushed to JSONL every FLUSH_EVERY records so a timeout doesn't
+lose all the work.
 """
 
 import json
@@ -36,6 +45,8 @@ from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from agent.tools import ToolExecutor
+
+FLUSH_EVERY = 500  # write partial JSONL every N kept records
 
 
 def load_config(config_path: str = "config.yaml") -> dict:
@@ -54,7 +65,6 @@ def extract_supporting_titles(example: dict) -> list[str]:
 
 
 def build_search_query(question: str, entity_hint: str) -> str:
-    """Entity + up to 3 content words from the question."""
     q_clean = question.strip().rstrip("?")
     entity_tokens = set(entity_hint.lower().split())
     stop_words = {"the", "a", "an", "is", "are", "was", "were", "of", "in",
@@ -114,42 +124,65 @@ def make_answer_thought(question: str, entities: list[str]) -> str:
     return random.choice(templates)
 
 
-def _doc_id_for_title(tool: ToolExecutor, title: str) -> str | None:
-    return tool._title_to_id.get(_normalize_title(title))
+def build_mini_tool(example: dict) -> ToolExecutor:
+    """Tiny ToolExecutor over this example's ~10 candidate paragraphs."""
+    tool = ToolExecutor(top_k=2)
+    tool._index = []
+    tool._full = {}
+    tool._title_to_id = {}
+    seen_titles = set()
+    for idx, (title, sentences) in enumerate(
+        zip(example["context"]["title"], example["context"]["sentences"]),
+        start=1,
+    ):
+        norm = _normalize_title(title)
+        if norm in seen_titles:
+            continue
+        seen_titles.add(norm)
+        text_parts = []
+        seen_sents = set()
+        for s in sentences:
+            clean = re.sub(r"\s+", " ", s).strip()
+            if clean and clean not in seen_sents:
+                text_parts.append(clean)
+                seen_sents.add(clean)
+        text = " ".join(text_parts)
+        doc_id = f"doc_{idx:05d}"
+        tool._index.append({"doc_id": doc_id, "title": title, "text": text})
+        tool._full[doc_id] = text
+        tool._full[title] = text
+        tool._title_to_id[norm] = doc_id
+    tool._rebuild_inverted()
+    return tool
 
 
 def _search_hit_contains(search_obs: str, doc_id: str) -> bool:
-    """True if the search output includes the given doc_id in its top-k."""
     return f"[{doc_id}]" in search_obs
 
 
-def build_trace(example: dict, cfg: dict, tool: ToolExecutor) -> list[dict] | None:
+def build_trace(example: dict, cfg: dict) -> list[dict] | None:
     """
-    Build a multi-step trace using real tool output.
-
-    Returns None if BM25 fails to retrieve a supporting doc for any entity —
-    the caller drops such examples.
+    Build a multi-step trace using real tool output on a per-example index.
+    Returns None if BM25 fails to surface a supporting doc in its top-k.
     """
     question = example["question"]
     answer = example["answer"]
     supporting_titles = extract_supporting_titles(example)
     max_steps = cfg["dataset"]["max_steps_per_trace"]
     entities_to_search = supporting_titles[: max(1, max_steps // 2)]
-
     if not entities_to_search:
         return None
+
+    tool = build_mini_tool(example)
 
     steps_raw = []
     for entity in entities_to_search:
         query = build_search_query(question, entity)
         search_obs = tool.search(query)
-
-        doc_id = _doc_id_for_title(tool, entity)
+        doc_id = tool._title_to_id.get(_normalize_title(entity))
         if doc_id is None or not _search_hit_contains(search_obs, doc_id):
             return None
-
         read_obs = tool.read(doc_id)
-
         steps_raw.append(("search", {"query": query, "_entity": entity, "observation": search_obs}))
         steps_raw.append(("read",   {"document": doc_id, "_entity": entity, "observation": read_obs}))
 
@@ -189,22 +222,28 @@ def process_split(
     hf_dataset,
     cfg: dict,
     n_target: int,
-    tool: ToolExecutor,
+    output_path: str,
     desc: str,
 ) -> list[dict]:
-    records = []
+    """
+    Build traces for one split, flushing every FLUSH_EVERY kept records so
+    a timeout/kernel-kill doesn't lose everything.
+    """
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+    records: list[dict] = []
+    last_flushed = 0
     dropped_no_hit = 0
     dropped_err = 0
     indices = list(range(len(hf_dataset)))
     random.shuffle(indices)
 
-    pbar = tqdm(indices, desc=desc, total=min(n_target, len(indices)))
+    pbar = tqdm(indices, desc=desc)
     for idx in pbar:
         if len(records) >= n_target:
             break
         example = hf_dataset[idx]
         try:
-            trace = build_trace(example, cfg, tool)
+            trace = build_trace(example, cfg)
         except Exception:
             dropped_err += 1
             continue
@@ -216,21 +255,24 @@ def process_split(
             "answer": example["answer"],
             "trace": trace,
         })
+        if len(records) - last_flushed >= FLUSH_EVERY:
+            _write_jsonl(records, output_path)
+            last_flushed = len(records)
         pbar.set_postfix(kept=len(records), drop_nohit=dropped_no_hit, drop_err=dropped_err)
 
+    _write_jsonl(records, output_path)  # final flush
     print(
         f"{desc}: kept={len(records)}  "
-        f"dropped(no BM25 hit)={dropped_no_hit}  dropped(err)={dropped_err}"
+        f"dropped(no BM25 hit)={dropped_no_hit}  dropped(err)={dropped_err}  "
+        f"-> {output_path}"
     )
     return records
 
 
-def write_jsonl(records: list[dict], path: str) -> None:
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
+def _write_jsonl(records: list[dict], path: str) -> None:
     with open(path, "w") as f:
         for rec in records:
             f.write(json.dumps(rec) + "\n")
-    print(f"Wrote {len(records)} records -> {path}")
 
 
 def main():
@@ -245,34 +287,40 @@ def main():
     train_size = cfg["dataset"]["train_size"]
     val_size = cfg["dataset"]["val_size"]
 
-    # Train and val questions reference their own split's documents, so we
-    # build one retrieval index per split. The val-split index is saved to
-    # disk and reused at eval time (Weeks 2/3) via ToolExecutor(index_path=...).
-    print("Building ToolExecutor index from HotpotQA train split...")
-    train_tool = ToolExecutor(top_k=2)
-    train_tool.build_from_hotpotqa(train_ds)
-    print(f"  train corpus: {len(train_tool)} unique documents")
-
+    # Build + save the global val-split index so Weeks 2/3 reuse it.
+    # This is a one-time cost (~1 min for ~7k docs) and does NOT participate
+    # in trace generation -- traces use per-example mini-indices below.
     val_tool_index = cfg["dataset"].get("tool_index_path", "data/sft_traces/tool_index.jsonl")
-    print("Building ToolExecutor index from HotpotQA validation split...")
-    val_tool = ToolExecutor(top_k=2)
-    val_tool.build_from_hotpotqa(val_ds, index_path=val_tool_index)
-    print(f"  val corpus: {len(val_tool)} unique documents")
+    if not Path(val_tool_index).exists():
+        print("Building + saving val-split global ToolExecutor index...")
+        val_tool = ToolExecutor(top_k=2)
+        val_tool.build_from_hotpotqa(val_ds, index_path=val_tool_index)
+    else:
+        print(f"val-split tool index already exists -> {val_tool_index}")
 
-    train_records = process_split(train_ds, cfg, train_size, train_tool, "Building train traces")
-    val_records = process_split(val_ds, cfg, val_size, val_tool, "Building val traces")
+    # Generate traces using per-example mini-indices (fast).
+    process_split(
+        train_ds, cfg, train_size,
+        cfg["dataset"]["train_file"], "Building train traces",
+    )
+    process_split(
+        val_ds, cfg, val_size,
+        cfg["dataset"]["val_file"], "Building val traces",
+    )
 
-    write_jsonl(train_records, cfg["dataset"]["train_file"])
-    write_jsonl(val_records, cfg["dataset"]["val_file"])
-
-    if train_records:
-        sample = train_records[0]
+    # Quick sample print from the final train file.
+    train_path = cfg["dataset"]["train_file"]
+    if Path(train_path).exists():
+        with open(train_path) as f:
+            sample = json.loads(f.readline())
         print("\n--- Sample trace ---")
         print("Q:", sample["question"])
         print("A:", sample["answer"])
         for step in sample["trace"]:
-            print(json.dumps({k: (v[:120] + "...") if isinstance(v, str) and len(v) > 120 else v
-                              for k, v in step.items()}))
+            print(json.dumps({
+                k: (v[:120] + "...") if isinstance(v, str) and len(v) > 120 else v
+                for k, v in step.items()
+            }))
         print("--------------------")
 
 
