@@ -381,6 +381,7 @@ def filter_learnable_questions(
     max_steps:     int  = 3,
     min_correct:   int  = 1,
     max_correct:   int | None = None,
+    temperature:   float = 0.5,
     device:        str  = "cuda",
     verbose:       bool = True,
 ) -> list[dict]:
@@ -424,6 +425,7 @@ def filter_learnable_questions(
             system_prompt=system_prompt,
             G=K,
             max_steps=max_steps,
+            temperature=temperature,
             device=device,
         )
         n_correct = sum(int(ep.correct) for ep in episodes)
@@ -555,6 +557,7 @@ def grpo_train_step(
     alpha:        float = 0.1,
     beta:         float = 0.05,
     epsilon:      float = 0.05,
+    temperature:  float = 0.5,
     device:       str   = "cuda",
 ) -> dict:
     """
@@ -594,6 +597,7 @@ def grpo_train_step(
             system_prompt=system_prompt,
             G=G,
             max_steps=max_steps,
+            temperature=temperature,
             device=device,
         )
 
@@ -666,6 +670,7 @@ def train(
     alpha:           float = 0.1,
     beta:            float = 0.05,
     epsilon:         float = 0.05,
+    temperature:     float = 0.5,
     val_every:       int = 5,
     save_every:      int = 10,
     device:          str = "cuda",
@@ -703,6 +708,7 @@ def train(
             alpha=alpha,
             beta=beta,
             epsilon=epsilon,
+            temperature=temperature,
             device=device,
         )
 
