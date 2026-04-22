@@ -592,6 +592,13 @@ def grpo_train_step(
         gold_answer = q.get("answer", "")
 
         # --- Collect G episodes in ONE batched generate per step ---
+        # model.eval() during rollout: torch.no_grad() disables gradients but
+        # NOT dropout. With LoRA dropout=0.05 active at training time,
+        # generations at T=0.5 get garbled often enough that parsing fails and
+        # rollouts terminate at step 1 with an empty answer (observed symptom:
+        # training `steps=1.0, acc=0.00, loss=0` while [VAL] acc=0.35).
+        # Eval mode before rollout, train mode after, for the backward pass.
+        model.eval()
         group: list[Episode] = collect_episodes_batched(
             question, gold_answer, model, tokenizer, tool_executor,
             system_prompt=system_prompt,
@@ -600,6 +607,7 @@ def grpo_train_step(
             temperature=temperature,
             device=device,
         )
+        model.train()
 
         # --- Score ---
         completions = [ep.full_text for ep in group]
