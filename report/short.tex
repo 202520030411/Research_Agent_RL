@@ -332,4 +332,135 @@ needle.
 \bibliographystyle{plain}
 \bibliography{refs}
 
+% ==========================================================
+% Appendix (does not count against the 4-page main-body budget)
+% ==========================================================
+\appendix
+
+\section{Zero-shot baseline stop-reason breakdown}
+\label{app:stop-reasons}
+
+Table~\ref{tab:stop-reasons} reports \emph{why} each zero-shot
+baseline's rollouts terminated on the 100 HotpotQA validation
+questions. Three termination modes are possible: \texttt{answer}
+means the policy emitted an \texttt{action:"answer"} step within
+the step budget; \texttt{parse\_error} means the generation was
+not a parseable JSON object with the required keys;
+\texttt{policy} means the rollout hit the step-budget cap without
+a valid \texttt{answer} action, in which case the last step's
+text is taken as the predicted answer.
+
+\begin{table}[h]
+\small
+\centering
+\caption{Stop-reason counts (out of 100) for each Week 2
+baseline. Compare to EM in Table~\ref{tab:main}.}
+\label{tab:stop-reasons}
+\begin{tabular}{lrrr}
+\toprule
+Method & \texttt{answer} & \texttt{parse\_error} & \texttt{policy} \\
+\midrule
+FixedStep($N{=}2$)         & 0  & 0   & 100 \\
+FixedStep($N{=}3$)         & 0  & 50  & 50  \\
+Confidence($\tau{=}0.75$)  & 7  & 48  & 45  \\
+Confidence($\tau{=}0.85$)  & 12 & 44  & 44  \\
+NeverStop($\max{=}6$)      & 53 & 47  & 0   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two things stand out. First, at $\mathrm{max\_steps}\leq 3$ the
+policy essentially never emits a clean \texttt{answer} action ---
+FixedStep($N{=}3$) has a 0\% answer rate, and even
+Confidence($\tau{=}0.85$) only reaches 12\%. This is the
+structural reason the best zero-shot baseline plateaus at 26\%
+EM: most rollouts either parse-error or run out of steps. Second,
+NeverStop pushes the answer rate up to 53\% by simply letting the
+policy run further, and the SFT-only row of Table~\ref{tab:main}
+(42--44\%) is the limiting case where the step budget matches the
+SFT trajectory length exactly. The 16-point step-budget component
+of our decomposition is visible directly in the monotone rise of
+the \texttt{answer} column.
+
+\section{GRPO training dynamics}
+\label{app:training-dynamics}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/fig2_val.pdf}
+\caption{GRPO validation exact-match across 200 training steps.
+Each point is a freshly sampled 20-question subset of the HotpotQA
+validation split; the $\pm 1$-SE band reflects the binomial
+variance at $n{=}20$ only. The dashed line is the 100-question
+final eval (0.44). The curve stays within $[0.35, 0.50]$ and does
+not show a monotone improvement --- expected behaviour for a run
+with only $\sim$41 effective gradient updates (see main-body §3).}
+\label{fig:val_curve}
+\end{figure}
+
+Of the 200 GRPO update steps, exactly 41 (20.5\%) produced
+non-zero training loss; the remaining 159 had identical rewards
+across the $G{=}4$ rollouts and were skipped by the
+$|A_i|<10^{-8}$ guard in \texttt{grpo\_train\_step}. Training
+epoch time was $\approx$50--60~s on a T4, making the full run
+$\approx$3~h including the learnable-zone filter and periodic
+validation. Decomposing the tied-reward configuration, essentially
+all tied groups came from \emph{all four rollouts wrong with
+identical format score}; this is the pathology the main-body
+\S4 prescription (continuous-variance format reward) is designed
+to address.
+
+\section{Failure modes encountered during tuning}
+\label{app:failure-modes}
+
+The final GRPO configuration reported in the main body is the
+product of three debugging iterations, each triggered by a
+specific empirical symptom. The full post-mortem, including
+commit hashes and reproduction steps, is in the accompanying
+\texttt{TUNING\_JOURNEY.md}; we summarise them briefly here
+because they are collectively a small-but-general lesson about
+multi-turn LM-RL at sub-1B scale.
+
+\paragraph{(i) Rollout temperature.}
+A first version used the DeepSeek-R1-style default $T{=}0.9$ for
+rollout generation inside GRPO. On the 0.5B policy this is large
+enough that the per-step JSON parse fails on step one, the
+parse-failure branch terminates the rollout at step one with an
+empty \texttt{answer}, and every group is tied at zero correctness
+and identical format. The zone histogram reported \emph{zero}
+learnable groups over 1{,}000 candidate questions. Fix: $T{=}0.5$,
+threaded through \texttt{filter\_learnable\_questions} and
+\texttt{grpo\_train\_step} as an explicit parameter rather than a
+hardcoded default inside the leaf function.
+
+\paragraph{(ii) Step budget matching SFT trajectory length.}
+A second version used $\mathrm{max\_steps}{=}3$ for rollouts.
+Rollouts reliably emit
+\texttt{search}$\to$\texttt{read}$\to$\texttt{search} and end
+\emph{before} the policy ever gets to \texttt{read}$\to$\texttt{answer}
+for the second hop, since the SFT traces are 5 steps long. Every
+rollout scored zero correctness regardless of retrieval quality.
+Fix: $\mathrm{max\_steps}{=}5$, matching the SFT trajectory length.
+This observation is the direct inspiration for the main-body
+step-budget decomposition.
+
+\paragraph{(iii) Eval mode during rollout.}
+A third version called \texttt{collect\_episodes\_batched}
+(decorated with \texttt{@torch.no\_grad()}) while the model was
+in \texttt{train} mode. \texttt{no\_grad} disables gradient
+tracking but \emph{not} dropout; the 0.05 LoRA dropout was still
+active during generation, and the first-step JSON parse failed
+often enough to reproduce the step-one-termination pathology from
+(i). Symptom: \texttt{steps=1.0, acc=0.00, loss=0.0000} on every
+training epoch, while the periodic \texttt{[VAL]} check (which
+explicitly calls \texttt{model.eval()}) reported $\sim$35\%.
+Fix: \texttt{model.eval()} immediately before the rollout,
+\texttt{model.train()} immediately after, on a per-question
+basis.
+
+A common thread runs through all three: each was a hyperparameter
+or code-path default that was correct for a \emph{larger} base
+policy or a \emph{non-interactive} training loop, and silently
+wrong for our setup.
+
 \end{document}
