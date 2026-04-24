@@ -42,38 +42,23 @@
 
 % ==========================================================
 \begin{abstract}
-We build a small tool-using research agent that answers multi-hop
-questions by interleaving JSON-formatted actions (\texttt{search},
-\texttt{read}, \texttt{answer}) with a retrieval tool, and study how
-supervised fine-tuning (SFT) and reinforcement learning interact on this
-task. Starting from Qwen2.5-0.5B-Instruct with LoRA adapters, we
-generate synthetic interaction traces from HotpotQA supporting facts for
-SFT, then compare five zero-shot stopping-policy heuristics against a
-multi-turn GRPO procedure. Unlike standard RL-for-LLM recipes that
-train on model-generated (``virtual'') traces, our GRPO rollouts execute
-the real BM25 retrieval tool at every step, so the policy is updated on
-the same distribution of observations it will see at inference. On
-HotpotQA distractor, the best zero-shot baseline (confidence-threshold
-stopping over the SFT policy) reaches 26\% exact-match; multi-turn
-GRPO reaches 44\%, a $+18$-point improvement. Decomposing this gap with
-an apples-to-apples ablation, we find that essentially all of it
-comes from a single inference-time change: aligning the rollout
-step budget with the SFT trajectory length lifts the SFT policy
-alone from 26\% to 42--44\% EM. GRPO on top of that matched
-baseline produces no detectable improvement at our evaluation
-scale --- two independent 100-question SFT-only evaluations gave
-42.0\% and 44.0\%, bracketing the GRPO number of 44.0\%. The
-headline result of this paper is therefore not ``RL beats SFT by
-$+18$''; it is the decomposition: for a small SFT'd tool-using
-policy, the dominant lever is matching the inference trajectory
-length to training, and multi-turn GRPO produces no measurable
-lift beyond that at this scale. We analyse why --- the effective
-GRPO update budget was $\sim$41 of the nominal 200 steps because
-of tied reward groups --- and argue that the reward design, not
-the amount of training, is the next bottleneck to address. We
-release the training
-pipeline and a post-mortem of the concrete failure modes that shaped the
-final configuration.
+We build a small tool-using research agent on HotpotQA:
+Qwen2.5-0.5B-Instruct with LoRA, fine-tuned by SFT on synthetic
+interaction traces, then refined by multi-turn GRPO whose rollouts
+execute the real BM25 retrieval tool at every step rather than a
+model-generated (``virtual'') trace. On 100 HotpotQA validation
+questions, the full pipeline lifts exact-match from 26\% (best
+zero-shot stopping heuristic) to 44\%. Decomposing this gap, we
+find that the bulk comes from a single inference-time change:
+aligning the rollout step budget with the SFT trajectory length
+lifts the SFT policy alone to 42--44\%, while multi-turn GRPO on
+top produces no detectable lift at our evaluation scale. We trace
+the null result to tied reward groups --- 159 of 200 training
+epochs had identical rewards across the $G{=}4$ rollouts, so the
+effective update budget was $\sim$41, not 200 --- and argue that
+the next bottleneck is reward design (a term with continuous
+intra-group variance on all-wrong groups), not more or longer
+training.
 \end{abstract}
 
 % ==========================================================
