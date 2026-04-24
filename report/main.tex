@@ -376,11 +376,36 @@ where $\mathcal{G}(\tau_i)$ is the set of token positions that were
 the user message, and the \texttt{Observation: \ldots} lines injected
 by the tool. We identify $\mathcal{G}$ at loss-computation time using
 the tokenizer's \texttt{offset\_mapping} and the recorded per-turn
-character spans, exactly as in SFT. We do not use a KL penalty against
-a frozen reference model; the LoRA adapter capacity is small enough
-that the implicit regulariser of starting from the SFT weights suffices
-in practice, and omitting the KL term saves one full forward pass per
-rollout.
+character spans, exactly as in SFT. We do not use a KL penalty
+against a frozen reference model. The decision was driven primarily
+by T4 memory, not by principle. The per-episode-backward trick
+described later in this section (and in Algorithm~\ref{alg:grpo_step})
+caps peak VRAM at \emph{one} trajectory's forward activations,
+which on a 1{,}500-token Qwen-0.5B trajectory in bf16 with gradient
+checkpointing is already $\approx$6--8~GB. Adding a KL penalty
+$-\eta \cdot \mathrm{KL}\big(\pi_\theta(\cdot \mid \tau_{<t}) \,\|\, \pi_\mathrm{ref}(\cdot \mid \tau_{<t})\big)$
+would require a \emph{second} forward pass over the same trajectory
+through a frozen copy of the policy to obtain
+$\log \pi_\mathrm{ref}(\tau)$. That second pass need not maintain
+its own copy of the base weights --- PEFT's
+\texttt{model.disable\_adapter()} context gives us the pre-adapter
+reference policy for free on the same base model --- but it
+\emph{does} force a second set of intermediate activations to be
+resident simultaneously with the first, since both log-probs have
+to be combined before the single \texttt{loss.backward()} call. On
+the 16~GB T4 that pushes us to the edge of OOM and would force
+either offloading the reference's KV cache to CPU (slow),
+gradient-checkpointing the reference forward as well (extra
+$\approx$25\% compute per rollout), or reducing $G$ (weaker
+advantage estimate). None of these trade-offs were compelling for
+a 200-step run: the LoRA adapter's $\sim$2~M trainable parameters
+against $\sim$500~M frozen base already act as a capacity
+regulariser on how far the policy can drift from the SFT init, and
+KL drift is empirically a thousands-of-updates failure mode that
+our effective $\sim$41-update run does not reach
+(§\ref{sec:what-grpo-learned}). DeepSeek-R1-Zero similarly omits
+the KL term under the same logic. We re-introduce this choice as a
+limitation in §\ref{sec:limitations}.
 
 \paragraph{Real-tool rollout loop.}
 Each rollout is an interactive dialogue between the policy and the
@@ -950,12 +975,24 @@ with continuous intra-group variance; we do not test this hypothesis
 here.
 
 \paragraph{No KL-to-reference term.}
-Standard GRPO implementations keep a KL penalty against a frozen
-reference policy for stability. We omit it, relying on the implicit
-regulariser of starting from the SFT weights and the small LoRA
-adapter capacity. This was fine for the short 200-step run reported
-here; a longer run would likely benefit from re-introducing the KL
-term.
+Standard GRPO implementations keep a KL penalty
+$-\eta \cdot \mathrm{KL}(\pi_\theta \,\|\, \pi_\mathrm{ref})$ against
+a frozen reference policy for stability. We omit it. The omission
+is memory-driven rather than principled: the per-episode-backward
+trick we rely on to fit GRPO at $G{=}4$ on a 16~GB T4
+(§\ref{sec:grpo}) caps peak VRAM at one trajectory's activations,
+and adding a KL term requires a second simultaneous forward pass
+through the reference (even sharing base weights via PEFT's
+\texttt{disable\_adapter} context), which roughly doubles peak
+activation memory for the log-prob computation and either pushes
+us to OOM or forces us to drop $G$. For the 200-step run reported
+here, the LoRA adapter's $\sim$2~M trainable parameters act as a
+sufficient implicit regulariser on policy drift, and we saw no
+empirical signs of the instabilities a KL term is meant to prevent
+(no NaN losses, no pathological rollout text, no val-curve
+collapse). A longer run, a larger adapter, or a bigger GPU would
+all change the balance; on any of those axes we would re-introduce
+the KL term.
 
 \paragraph{Real tool, but deterministic.}
 Our BM25 retriever is deterministic: for a fixed query, the
