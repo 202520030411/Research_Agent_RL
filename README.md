@@ -1,110 +1,179 @@
 # Research Agent RL
 
-**Efficient Research Agents via Hybrid Training: SFT + RL-Based Decision Policies**
+A small tool-using research agent trained on HotpotQA: Qwen2.5-0.5B +
+LoRA, fine-tuned first by SFT on synthetic interaction traces, then
+refined by multi-turn GRPO whose rollouts **execute the real BM25
+retrieval tool at every step** (not a virtual/self-generated trace).
 
-A two-component system for building efficient open-domain QA agents:
-
-1. **SFT LLM** (Qwen2.5-0.5B-Instruct, QLoRA) — learns structured reasoning and calibrated confidence estimation
-2. **RL Policy Network** (MLP, Week 3) — learns when to stop searching, framed as an optimal stopping problem
+The full write-up is in [report/main.pdf](report/main.pdf) and the
+engineering post-mortem is in [TUNING_JOURNEY.md](TUNING_JOURNEY.md).
 
 ---
 
-## Project Structure
+## Headline results (HotpotQA distractor, 100 validation questions)
+
+| Method | EM (%) | Avg. steps |
+|---|---|---|
+| FixedStep(N=2) | 6.0 | 2.00 |
+| FixedStep(N=3) | 16.0 | 2.50 |
+| Confidence(τ=0.75) | 20.0 | 2.88 |
+| Confidence(τ=0.85) | **26.0** | 3.20 |
+| NeverStop(max=6) | 21.0 | 3.57 |
+| SFT-only @ max_steps=5 | **42.0 / 44.0** | 5.00 |
+| Multi-turn GRPO (ours) | **44.0** | 4.99 |
+
+The 26% → 44% headline decomposes into **+16 points from aligning the
+inference step budget with the SFT trajectory length** and
+**~0 points from GRPO on top** (two independent SFT-only runs gave
+42.0 and 44.0; GRPO sits inside that spread). The null result for
+GRPO is analysed in the report — in short, 159 of 200 training epochs
+had tied reward groups, so the effective update budget was ~41, not
+200. The concrete next step is a reward term with continuous
+intra-group variance on all-wrong groups.
+
+---
+
+## Repository layout
 
 ```
 Research_Agent_RL-1/
-├── config.yaml                    # All hyperparameters
+├── config.yaml                     # all hyperparameters (model, LoRA, SFT, reward)
 ├── requirements.txt
+│
+├── agent/
+│   ├── tools.py                    # BM25 ToolExecutor: search + read actions
+│   ├── agent.py                    # inference-time agent: prompt + generation loop
+│   └── stopping.py                 # five zero-shot stopping-policy baselines
+│
 ├── data/
-│   ├── prepare_sft_dataset.py     # HotpotQA → structured reasoning traces (JSONL)
-│   └── sft_dataset.py             # PyTorch Dataset with instruction masking
-└── sft/
-    ├── model.py                   # Qwen2.5-0.5B + 4-bit QLoRA setup
-    └── train_sft.py               # TRL SFTTrainer entry point
+│   ├── prepare_sft_dataset.py      # HotpotQA → 5-step traces w/ real retrieval
+│   └── sft_dataset.py              # PyTorch Dataset with observation-masked loss
+│
+├── sft/
+│   ├── model.py                    # Qwen2.5-0.5B + LoRA (attention + MLP projections)
+│   └── train_sft.py                # TRL SFTTrainer entry point
+│
+├── rl/
+│   ├── grpo_rewards.py             # correctness + format + efficiency rewards
+│   └── multi_turn_grpo.py          # rollouts, filter, grpo_train_step, train()
+│
+├── eval/
+│   ├── evaluate.py                 # agent-level EM evaluator
+│   └── metrics.py                  # normalisation + exact-match + substring
+│
+├── scripts/
+│   ├── make_figures.py             # regenerates report figures from data
+│   └── smoke_mt_grpo.py            # single-question GRPO smoke test
+│
+├── kaggle_week1_sft.ipynb          # week 1: SFT trace generation + fine-tuning
+├── kaggle_week2_baselines.ipynb    # week 2: five zero-shot stopping heuristics
+├── kaggle_week3_grpo.ipynb         # week 3: multi-turn GRPO with real tools
+├── kaggle_sft_ablation.ipynb       # ablation: SFT-only @ max_steps=5
+├── kaggle_ablation_500.ipynb       # 500-q paired SFT-vs-GRPO ablation (unused)
+│
+├── report/
+│   ├── main.tex                    # the paper
+│   ├── refs.bib                    # bibliography
+│   ├── figures/                    # fig1_main.pdf, fig2_val.pdf
+│   └── main.pdf                    # rendered output
+│
+└── TUNING_JOURNEY.md               # failure-mode post-mortem
 ```
 
 ---
 
-## Week 1: SFT Dataset & Fine-tuning
+## Reproducing the pipeline
 
-### Prerequisites
+Every stage is packaged as a self-contained Kaggle notebook. Each one
+clones this repo, installs dependencies, and runs the relevant
+training/eval step. Kaggle T4 (16 GB) + Internet ON is the target
+environment; all four notebooks fit inside the 12 h kernel cap with
+margin.
 
-**On Kaggle:** enable the T4 GPU accelerator and turn on internet access in notebook settings.
+### Week 1 — SFT
 
-**Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
+Notebook: [kaggle_week1_sft.ipynb](kaggle_week1_sft.ipynb)
 
-### Step 1 — Build the SFT dataset
+Generates 6000 5-step HotpotQA traces using per-example BM25
+mini-indices (search → read → search → read → answer) and fine-tunes
+Qwen2.5-0.5B with a LoRA adapter on attention + MLP projections. The
+training loss masks out `Observation:` lines so the model is only
+scored on its own JSON actions. Output: a 34 MB LoRA adapter.
 
-Downloads HotpotQA (distractor split) and converts examples into multi-step reasoning traces:
+Runtime: ~2 h on T4.
 
-```bash
-python data/prepare_sft_dataset.py
-```
+### Week 2 — zero-shot stopping heuristics
 
-This writes:
-- `data/sft_traces/train.jsonl` — 8 000 training traces
-- `data/sft_traces/val.jsonl` — 500 validation traces
+Notebook: [kaggle_week2_baselines.ipynb](kaggle_week2_baselines.ipynb)
 
-Each JSONL line is a `{"question": ..., "answer": ..., "trace": [...]}` record. Each step in `trace` is a JSON object the model must learn to produce:
+Runs five fixed stopping policies over the SFT adapter on 100 val
+questions: `FixedStep(N∈{2,3})`, `Confidence(τ∈{0.75, 0.85})`,
+`NeverStop(max=6)`. No additional training. These are the "what can
+heuristics recover without RL?" baselines.
 
-```json
-{"thought": "I need to find ...", "action": "search", "query": "...", "confidence": 0.31}
-{"thought": "The document says ...", "action": "read", "document": "...", "confidence": 0.55}
-{"thought": "Based on both sources ...", "action": "answer", "answer": "...", "confidence": 0.89}
-```
+Runtime: ~30 min on T4.
 
-### Step 2 — Fine-tune
+### Week 3 — multi-turn GRPO with real tool execution
 
-```bash
-python sft/train_sft.py
-# or with an explicit config path:
-python sft/train_sft.py --config config.yaml
-```
+Notebook: [kaggle_week3_grpo.ipynb](kaggle_week3_grpo.ipynb)
 
-Checkpoints are saved to `checkpoints/qwen-sft/` every 200 steps.  
-The best checkpoint (lowest eval loss) is saved to `checkpoints/qwen-sft/final/`.
+For each question, runs G=4 rollouts where every `search`/`read`
+action is dispatched to the real BM25 index and the real observation
+is fed back before the next step. Within-group advantage
+normalisation, combined reward (correctness + format + efficiency +
+low-info-gain JSD penalty), per-episode backward for T4 memory.
 
-**Expected Kaggle T4 runtime:** ~2–3 hours for 3 epochs over 8k samples.
+Key hyperparameters (see [rl/multi_turn_grpo.py](rl/multi_turn_grpo.py)):
+
+| Flag | Value | Why |
+|---|---|---|
+| `G` | 4 | within-group advantage needs ≥3 rollouts |
+| `max_steps` | 5 | must match the SFT trajectory length |
+| `temperature` | 0.5 | at 0.9 the 0.5B model loses JSON format |
+| `n_epochs` | 200 | |
+| `batch_size` | 1 | per-episode backward; peak VRAM = 1 trajectory |
+| `lr` | 5e-6 | standard for LoRA+RL |
+
+Runtime: ~3 h on T4 (filter + 200 updates + checkpoint vals + final eval).
+
+### SFT-only ablation
+
+Notebook: [kaggle_sft_ablation.ipynb](kaggle_sft_ablation.ipynb)
+
+Evaluates the SFT adapter alone at `max_steps=5, T=0.1` on the same
+100 val questions Week 2 and Week 3 use. Isolates the "step-budget
+alignment" contribution from the "GRPO training" contribution.
+Device-adaptive (GPU or CPU).
+
+Runtime: ~5 min on T4, ~45 min on CPU.
 
 ---
 
 ## Configuration
 
-All hyperparameters live in `config.yaml`. Key sections:
+All hyperparameters live in [config.yaml](config.yaml). Key sections:
 
-| Section | Key settings |
+| Section | Settings |
 |---|---|
-| `model` | `name`, `max_seq_length` |
-| `quantization` | 4-bit NF4, double quant |
-| `lora` | `r=16`, `alpha=32`, targets `q/k/v/o_proj` |
-| `dataset` | `train_size=8000`, `val_size=500` |
-| `training` | `lr=2e-4`, `epochs=3`, batch 4 × grad_accum 4 |
-| `reward` | `alpha`, `beta`, `epsilon` (used in Week 3) |
+| `model` | `Qwen/Qwen2.5-0.5B-Instruct`, `max_seq_length=1024` |
+| `lora` | `r=16`, `alpha=32`, targets = all attention + MLP projections, dropout 0.05 |
+| `dataset` | `train_size=6000`, `val_size=500`, `max_steps_per_trace=4` |
+| `training` (SFT) | 5 epochs, `lr=2e-4`, cosine, warmup 75, batch 2 × accum 8, fp16 |
+| `reward` (GRPO) | `alpha=0.1` (step), `beta=0.05` (JSD), `epsilon=0.05` (JSD threshold) |
+
+GRPO-specific flags (`G`, `max_steps`, `temperature`, `n_epochs`) are
+passed at the call-site in the Week 3 notebook rather than through
+the YAML.
 
 ---
 
-## Timeline
+## Related documents
 
-| Week | Goal |
-|------|------|
-| 1 | SFT dataset preparation & fine-tuning *(current)* |
-| 2 | Baseline agent implementation (fixed-step, confidence-threshold) |
-| 3 | RL policy network training (PPO/REINFORCE) |
-| 4 | Evaluation & analysis |
-
----
-
-## Reward Design (Week 3 Preview)
-
-The RL stopping policy is trained with:
-
-```
-R = +1 (correct answer)
-  - α · t                          (step penalty)
-  - β · Σ 1[JSD(P_ans^t ∥ P_ans^{t-1}) < ε]  (low-info-gain penalty)
-```
-
-The Jensen–Shannon divergence between consecutive answer distributions is computed directly from the LLM's `confidence` output — no oracle labels required.
+- [report/main.pdf](report/main.pdf) — the paper, 15 pages, honest
+  decomposition and null-result discussion.
+- [TUNING_JOURNEY.md](TUNING_JOURNEY.md) — the three Week 3 failure
+  modes and their fixes, with commit hashes (rollout temperature,
+  `max_steps` vs SFT trajectory length, `torch.no_grad()`
+  $\neq$ `model.eval()`). Worth reading before reproducing.
+- [scripts/make_figures.py](scripts/make_figures.py) — regenerates
+  both report figures from the embedded experiment data.

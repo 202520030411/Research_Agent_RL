@@ -1,0 +1,4512 @@
+{
+  "FixedStep (N=2)": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "gold_answer": "Chief of Protocol",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "gold_answer": "Eenasul Fateh",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "gold_answer": "3,677 seated",
+      "pred_answer": "4,000",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "gold_answer": "Terry Richardson",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "gold_answer": "Kansas Song",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "gold_answer": "1999",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "gold_answer": "from 1986 to 2013",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "gold_answer": "9,984",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "gold_answer": "the North Atlantic Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "gold_answer": "Pedro Rodr\u00edguez",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "gold_answer": "Sonic",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "gold_answer": "keyboard function keys",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "gold_answer": "Badly Drawn Boy",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "gold_answer": "World's Best Goalkeeper",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "gold_answer": "Barton Lee Hazlewood",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "gold_answer": "1838",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "gold_answer": "Henry J. Kaiser",
+      "pred_answer": "Edgar Fosbur\u00e9",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "gold_answer": "Arena of Khazan",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "gold_answer": "Fujioka, Gunma",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "gold_answer": "Charles Eug\u00e8ne",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "gold_answer": "Letters to Cleo",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "gold_answer": "October 1922",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "gold_answer": "World War II",
+      "pred_answer": "World War I",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "gold_answer": "New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "gold_answer": "Scotch Collie",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "gold_answer": "Mumbai",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "gold_answer": "1962",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "gold_answer": "sovereignty",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "gold_answer": "Nelson Rockefeller",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "gold_answer": "Yellowcraig",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "gold_answer": "Phil Spector",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "gold_answer": "Organizations could come together to address global issues",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "gold_answer": "English Electric Canberra",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+      "gold_answer": "2009 Big 12 Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at the end of 2016?",
+      "gold_answer": "1,462",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "gold_answer": "Indianapolis Motor Speedway",
+      "pred_answer": "Pinnacle Raceway",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+      "gold_answer": "Rome",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+      "gold_answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+      "gold_answer": "Marion, South Australia",
+      "pred_answer": "Darkhan (Mongolian: \u0414\u0430\u0440\u0445\u0430\u043d , \"blacksmith\")",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "gold_answer": "Drifting",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "gold_answer": "Keith Bostic",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+      "gold_answer": "35,124",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+      "gold_answer": "shortest player ever to play in the National Basketball Association",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+      "gold_answer": "Ronald Shusett",
+      "pred_answer": "Kathleen Kennedy",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "gold_answer": "Adeline Virginia Woolf",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+      "gold_answer": "821",
+      "pred_answer": "America's Got Talent - What Are Little Girls Made Of",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+      "gold_answer": "more than 70 countries",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+      "gold_answer": "Charmed",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+      "gold_answer": "International Boxing Hall of Fame",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+      "gold_answer": "Usher",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "gold_answer": "Bill Murray",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+      "gold_answer": "Carabao Cup",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+      "gold_answer": "Teen Titans Go!",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "gold_answer": "276,170 inhabitants",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+      "gold_answer": "orange",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+      "gold_answer": "Tromeo and Juliet",
+      "pred_answer": "The Tragedy of Romeo and Juliet",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+      "gold_answer": "William Jefferson Clinton",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+      "gold_answer": "John John Florence",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+      "gold_answer": "Ann",
+      "pred_answer": "Ward",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "gold_answer": "Apalachees",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "gold_answer": "British",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "gold_answer": "1865",
+      "pred_answer": "18 December 1863",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+      "gold_answer": "Newport",
+      "pred_answer": "Newport",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+      "gold_answer": "Bob Seger",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+      "gold_answer": "Conscription",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+      "gold_answer": "Mondelez International, Inc.",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+      "gold_answer": "Monica Lewinsky",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+      "gold_answer": "April 1, 1949",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first published?",
+      "gold_answer": "1866",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "gold_answer": "Canary Islands, Spain",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "gold_answer": "250 million",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "gold_answer": "director",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "gold_answer": "The Conversation",
+      "pred_answer": "The Conversation",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "gold_answer": "John Waters",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+      "gold_answer": "Las Vegas Strip in Paradise",
+      "pred_answer": "Saratoga Casino Hotel",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+      "gold_answer": "March and April",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "gold_answer": "Fairfax County",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "gold_answer": "IT products and services",
+      "pred_answer": "food",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "gold_answer": "Levni Yilmaz",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region to China based?",
+      "gold_answer": "Beijing",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    }
+  ],
+  "FixedStep (N=3)": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "gold_answer": "Chief of Protocol",
+      "pred_answer": "United States Secretary of State",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "pred_answer": "The Book Thief",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "pred_answer": "Yong-joon Lee",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "gold_answer": "Eenasul Fateh",
+      "pred_answer": "John Tardy",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "gold_answer": "3,677 seated",
+      "pred_answer": "4,000",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "gold_answer": "Terry Richardson",
+      "pred_answer": "Annie Morton",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "gold_answer": "Kansas Song",
+      "pred_answer": "The Kansas Song",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "pred_answer": "David Weissman",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "gold_answer": "1999",
+      "pred_answer": "1995",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "gold_answer": "from 1986 to 2013",
+      "pred_answer": "2009",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "gold_answer": "9,984",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "gold_answer": "the North Atlantic Conference",
+      "pred_answer": "Association of Collegiate Schools of Engineering",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "pred_answer": "1933\\u20131945",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "pred_answer": "Robert Erskine Childers",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "gold_answer": "Pedro Rodr\u00edguez",
+      "pred_answer": "Benjam\u00edn Arellano",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "gold_answer": "Sonic",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "gold_answer": "keyboard function keys",
+      "pred_answer": "Apple TV",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "gold_answer": "Badly Drawn Boy",
+      "pred_answer": "Wolf Alice",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "gold_answer": "World's Best Goalkeeper",
+      "pred_answer": "Charles \\",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "gold_answer": "Barton Lee Hazlewood",
+      "pred_answer": "Lee Hazlewood",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "gold_answer": "1838",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "gold_answer": "Henry J. Kaiser",
+      "pred_answer": "Edgar Fosbury Kaiser Sr.",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "gold_answer": "Arena of Khazan",
+      "pred_answer": "Thrillville",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "gold_answer": "Fujioka, Gunma",
+      "pred_answer": "Japan",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "gold_answer": "Charles Eug\u00e8ne",
+      "pred_answer": "Martin Luther",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "gold_answer": "Letters to Cleo",
+      "pred_answer": "Screaming Trees",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "gold_answer": "October 1922",
+      "pred_answer": "the February Revolution",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "gold_answer": "2000",
+      "pred_answer": "1980",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "gold_answer": "World War II",
+      "pred_answer": "World War I",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "gold_answer": "New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "gold_answer": "Scotch Collie",
+      "pred_answer": "Scottish Collie",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "gold_answer": "Mumbai",
+      "pred_answer": "Bangalore, Karnataka",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "gold_answer": "1962",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "gold_answer": "sovereignty",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "gold_answer": "Nelson Rockefeller",
+      "pred_answer": "Richard Nixon",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "gold_answer": "Yellowcraig",
+      "pred_answer": "the River Forth",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "gold_answer": "Phil Spector",
+      "pred_answer": "John Lennon",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "gold_answer": "Organizations could come together to address global issues",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "gold_answer": "English Electric Canberra",
+      "pred_answer": "Next-Generation Bomber",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+      "gold_answer": "2009 Big 12 Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at the end of 2016?",
+      "gold_answer": "1,462",
+      "pred_answer": "Carrefour",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "gold_answer": "Indianapolis Motor Speedway",
+      "pred_answer": "Circuit de la Sarthe",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+      "gold_answer": "Rome",
+      "pred_answer": "New York City",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+      "gold_answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+      "pred_answer": "Paul O\u00e9hagan",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+      "gold_answer": "Marion, South Australia",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "gold_answer": "Drifting",
+      "pred_answer": "oversteer",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "gold_answer": "Keith Bostic",
+      "pred_answer": "Fred Donald Marion",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+      "gold_answer": "35,124",
+      "pred_answer": "1.5 million",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+      "gold_answer": "shortest player ever to play in the National Basketball Association",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+      "gold_answer": "Ronald Shusett",
+      "pred_answer": "Kaohsiung Grand Hotel",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "gold_answer": "Adeline Virginia Woolf",
+      "pred_answer": "Amie Casey",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+      "gold_answer": "821",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+      "gold_answer": "more than 70 countries",
+      "pred_answer": "100+",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+      "gold_answer": "Charmed",
+      "pred_answer": "Jawbreaker",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+      "gold_answer": "International Boxing Hall of Fame",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+      "gold_answer": "Usher",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "gold_answer": "Bill Murray",
+      "pred_answer": "Henri Kontinen",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+      "gold_answer": "Carabao Cup",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+      "gold_answer": "Teen Titans Go!",
+      "pred_answer": "Tara Strong",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "gold_answer": "276,170 inhabitants",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+      "gold_answer": "orange",
+      "pred_answer": "black",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+      "gold_answer": "Tromeo and Juliet",
+      "pred_answer": "Operation Lighthouse",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+      "gold_answer": "William Jefferson Clinton",
+      "pred_answer": "Bill Clinton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+      "gold_answer": "John John Florence",
+      "pred_answer": "Brylan Van Artsdalen",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+      "gold_answer": "Ann",
+      "pred_answer": "Ann",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "gold_answer": "Apalachees",
+      "pred_answer": "Cayenne",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "gold_answer": "British",
+      "pred_answer": "British",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "gold_answer": "1865",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+      "gold_answer": "Newport",
+      "pred_answer": "Newport",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+      "gold_answer": "Bob Seger",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+      "gold_answer": "Conscription",
+      "pred_answer": "requiring only men to register for the draft",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+      "gold_answer": "Mondelez International, Inc.",
+      "pred_answer": "Mondelez International",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+      "gold_answer": "Monica Lewinsky",
+      "pred_answer": "Daniel Smith",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+      "gold_answer": "April 1, 1949",
+      "pred_answer": "December 31, 1977",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first published?",
+      "gold_answer": "1866",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "gold_answer": "Canary Islands, Spain",
+      "pred_answer": "Tenerife",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "gold_answer": "250 million",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "gold_answer": "director",
+      "pred_answer": "film editor and director",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "gold_answer": "The Conversation",
+      "pred_answer": "The Art of Conversation",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "gold_answer": "John Waters",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+      "gold_answer": "Las Vegas Strip in Paradise",
+      "pred_answer": "Saratoga Casino Hotel",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+      "gold_answer": "March and April",
+      "pred_answer": "June",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "gold_answer": "Fairfax County",
+      "pred_answer": "Keith County",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "gold_answer": "IT products and services",
+      "pred_answer": "food",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "gold_answer": "Levni Yilmaz",
+      "pred_answer": "Pamela B. Green",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region to China based?",
+      "gold_answer": "Beijing",
+      "pred_answer": "Rabat",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    }
+  ],
+  "Confidence (\u03c4=0.75)": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "gold_answer": "Chief of Protocol",
+      "pred_answer": "United States Senator",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "pred_answer": "The Book Thief",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "pred_answer": "Supercard of Honor IX",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "gold_answer": "Eenasul Fateh",
+      "pred_answer": "Francis J. Beckwith",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "gold_answer": "3,677 seated",
+      "pred_answer": "4,000",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "gold_answer": "Terry Richardson",
+      "pred_answer": "Annie Morton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "gold_answer": "Kansas Song",
+      "pred_answer": "Can't Fight the Moonlight",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "pred_answer": "David Weissman",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "gold_answer": "1999",
+      "pred_answer": "1996",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "gold_answer": "from 1986 to 2013",
+      "pred_answer": "2009",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "gold_answer": "9,984",
+      "pred_answer": "about 100,000",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "gold_answer": "the North Atlantic Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "pred_answer": "1933\u20131941",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "pred_answer": "Robert Caesar Childers",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "gold_answer": "Pedro Rodr\u00edguez",
+      "pred_answer": "Esteban Ocon",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "gold_answer": "Sonic",
+      "pred_answer": "Rufus",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "gold_answer": "keyboard function keys",
+      "pred_answer": "the 4th Generation Apple TV",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "gold_answer": "Badly Drawn Boy",
+      "pred_answer": "Wolf Alice",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "gold_answer": "World's Best Goalkeeper",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "gold_answer": "Barton Lee Hazlewood",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "gold_answer": "1838",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "gold_answer": "Henry J. Kaiser",
+      "pred_answer": "Edgar Fosbur\u00e9",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "gold_answer": "Arena of Khazan",
+      "pred_answer": "The American Adventure",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "gold_answer": "Fujioka, Gunma",
+      "pred_answer": "Japan",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "gold_answer": "Charles Eug\u00e8ne",
+      "pred_answer": "Pierre Chenal",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "gold_answer": "Letters to Cleo",
+      "pred_answer": "Screaming Trees",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "gold_answer": "October 1922",
+      "pred_answer": "the February Revolution",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "gold_answer": "World War II",
+      "pred_answer": "World War I",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "gold_answer": "New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "gold_answer": "Scotch Collie",
+      "pred_answer": "Irish Red and White Setter",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "gold_answer": "Mumbai",
+      "pred_answer": "Kerala",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "gold_answer": "1962",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "gold_answer": "sovereignty",
+      "pred_answer": "the Kingdom of Wessex",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "gold_answer": "Nelson Rockefeller",
+      "pred_answer": "Richard Nixon",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "gold_answer": "Yellowcraig",
+      "pred_answer": "the Humber Estuary",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 4,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "gold_answer": "Phil Spector",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "gold_answer": "Organizations could come together to address global issues",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "gold_answer": "English Electric Canberra",
+      "pred_answer": "English Electric Canberra",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+      "gold_answer": "2009 Big 12 Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at the end of 2016?",
+      "gold_answer": "1,462",
+      "pred_answer": "Carrefour",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "gold_answer": "Indianapolis Motor Speedway",
+      "pred_answer": "Circuit de la Sarthe",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+      "gold_answer": "Rome",
+      "pred_answer": "New York City",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+      "gold_answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+      "pred_answer": "Goulding and Goulding",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+      "gold_answer": "Marion, South Australia",
+      "pred_answer": "Westminster School",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "gold_answer": "Drifting",
+      "pred_answer": "oversteer",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "gold_answer": "Keith Bostic",
+      "pred_answer": "Eddie Charles Jones",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+      "gold_answer": "35,124",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+      "gold_answer": "shortest player ever to play in the National Basketball Association",
+      "pred_answer": "former NBA player",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+      "gold_answer": "Ronald Shusett",
+      "pred_answer": "Lynn Goldsmith",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "gold_answer": "Adeline Virginia Woolf",
+      "pred_answer": "Anne Lamott",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+      "gold_answer": "821",
+      "pred_answer": "821",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+      "gold_answer": "more than 70 countries",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+      "gold_answer": "Charmed",
+      "pred_answer": "Freaky Eaters",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+      "gold_answer": "International Boxing Hall of Fame",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+      "gold_answer": "Usher",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "gold_answer": "Bill Murray",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+      "gold_answer": "Carabao Cup",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+      "gold_answer": "Teen Titans Go!",
+      "pred_answer": "Teen Titans",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "gold_answer": "276,170 inhabitants",
+      "pred_answer": "Strasbourg",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+      "gold_answer": "orange",
+      "pred_answer": "blue",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+      "gold_answer": "Tromeo and Juliet",
+      "pred_answer": "Romeo & Juliet",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+      "gold_answer": "William Jefferson Clinton",
+      "pred_answer": "Bill Clinton",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+      "gold_answer": "John John Florence",
+      "pred_answer": "Brylan Van Artsdalen",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+      "gold_answer": "Ann",
+      "pred_answer": "Ann",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "gold_answer": "Apalachees",
+      "pred_answer": "Cayenne",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "gold_answer": "British",
+      "pred_answer": "British",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "gold_answer": "1865",
+      "pred_answer": "1865",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+      "gold_answer": "Newport",
+      "pred_answer": "Newport",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+      "gold_answer": "Bob Seger",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+      "gold_answer": "Conscription",
+      "pred_answer": "men's registration for the draft",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+      "gold_answer": "Mondelez International, Inc.",
+      "pred_answer": "Mondelez International",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+      "gold_answer": "Monica Lewinsky",
+      "pred_answer": "Connie Mariano",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+      "gold_answer": "April 1, 1949",
+      "pred_answer": "December 31, 1977",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first published?",
+      "gold_answer": "1866",
+      "pred_answer": "1982",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "gold_answer": "Canary Islands, Spain",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "gold_answer": "250 million",
+      "pred_answer": "more than 250 million",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "gold_answer": "director",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "gold_answer": "The Conversation",
+      "pred_answer": "The Art of Conversation",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "gold_answer": "John Waters",
+      "pred_answer": "James Cameron",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+      "gold_answer": "Las Vegas Strip in Paradise",
+      "pred_answer": "Saratoga Casino Hotel",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+      "gold_answer": "March and April",
+      "pred_answer": "March",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "gold_answer": "Fairfax County",
+      "pred_answer": "McLean County",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "gold_answer": "IT products and services",
+      "pred_answer": "food",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "gold_answer": "Levni Yilmaz",
+      "pred_answer": "Lev Yilmaz",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region to China based?",
+      "gold_answer": "Beijing",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    }
+  ],
+  "Confidence (\u03c4=0.85)": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 4,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "gold_answer": "Chief of Protocol",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "pred_answer": "The Book Thief",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "pred_answer": "YG Entertainment",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "gold_answer": "Eenasul Fateh",
+      "pred_answer": "Francis J. Beckwith",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "gold_answer": "3,677 seated",
+      "pred_answer": "3,677",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "gold_answer": "Terry Richardson",
+      "pred_answer": "Annie Morton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "gold_answer": "Kansas Song",
+      "pred_answer": "The Kansas Song",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 2,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "gold_answer": "1999",
+      "pred_answer": "1973",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "gold_answer": "from 1986 to 2013",
+      "pred_answer": "2009",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "gold_answer": "9,984",
+      "pred_answer": "about 100,000 inhabitants",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "gold_answer": "the North Atlantic Conference",
+      "pred_answer": "Association of Collegiate Schools of Engineering",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "pred_answer": "Robert Erskine Childers",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "gold_answer": "Pedro Rodr\u00edguez",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "gold_answer": "Sonic",
+      "pred_answer": "Hannibal",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "gold_answer": "keyboard function keys",
+      "pred_answer": "the 4th Generation Apple TV",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "gold_answer": "Badly Drawn Boy",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "gold_answer": "World's Best Goalkeeper",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "gold_answer": "Barton Lee Hazlewood",
+      "pred_answer": "Florence Leontine Mary Welch",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "gold_answer": "1838",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "gold_answer": "Henry J. Kaiser",
+      "pred_answer": "Edgar Fosbur\u00e9",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "gold_answer": "Arena of Khazan",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "gold_answer": "Fujioka, Gunma",
+      "pred_answer": "Japan",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "gold_answer": "Charles Eug\u00e8ne",
+      "pred_answer": "Jean-Fran\u00e7ois Fokker",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "gold_answer": "Letters to Cleo",
+      "pred_answer": "Screaming Trees",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "gold_answer": "October 1922",
+      "pred_answer": "the Soviet Union",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "gold_answer": "2000",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "gold_answer": "World War II",
+      "pred_answer": "World War I",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "gold_answer": "New York City",
+      "pred_answer": "Berkeley",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "gold_answer": "Scotch Collie",
+      "pred_answer": "Scottish Collie",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "gold_answer": "Mumbai",
+      "pred_answer": "Kerala",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "gold_answer": "1962",
+      "pred_answer": "1960",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "gold_answer": "sovereignty",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "gold_answer": "Nelson Rockefeller",
+      "pred_answer": "Richard Nixon",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "gold_answer": "Yellowcraig",
+      "pred_answer": "the coast of the Firth of Forth",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "gold_answer": "Phil Spector",
+      "pred_answer": "Lawrence",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "gold_answer": "Organizations could come together to address global issues",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "gold_answer": "English Electric Canberra",
+      "pred_answer": "English Electric Canberra",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+      "gold_answer": "2009 Big 12 Conference",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at the end of 2016?",
+      "gold_answer": "1,462",
+      "pred_answer": "a French multinational retail chain",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "gold_answer": "Indianapolis Motor Speedway",
+      "pred_answer": "Auto Club Speedway",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+      "gold_answer": "Rome",
+      "pred_answer": "New York City",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+      "gold_answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+      "pred_answer": "Leslie West",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+      "gold_answer": "Marion, South Australia",
+      "pred_answer": "Rio Hondo",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "gold_answer": "Drifting",
+      "pred_answer": "oversteer",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "gold_answer": "Keith Bostic",
+      "pred_answer": "Keith Bostic",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+      "gold_answer": "35,124",
+      "pred_answer": "100,000",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+      "gold_answer": "shortest player ever to play in the National Basketball Association",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+      "gold_answer": "Ronald Shusett",
+      "pred_answer": "Scott Derrickson",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "gold_answer": "Adeline Virginia Woolf",
+      "pred_answer": "Anne Lamott",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+      "gold_answer": "821",
+      "pred_answer": "821",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+      "gold_answer": "more than 70 countries",
+      "pred_answer": "many",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+      "gold_answer": "Charmed",
+      "pred_answer": "Jawbreaker",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+      "gold_answer": "International Boxing Hall of Fame",
+      "pred_answer": "Grandstand Publishing, LLC",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+      "gold_answer": "Usher",
+      "pred_answer": "Sonic Youth",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "gold_answer": "Bill Murray",
+      "pred_answer": "Pendleton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+      "gold_answer": "Carabao Cup",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+      "gold_answer": "Teen Titans Go!",
+      "pred_answer": "Teen Titans",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "gold_answer": "276,170 inhabitants",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+      "gold_answer": "orange",
+      "pred_answer": "blue",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+      "gold_answer": "Tromeo and Juliet",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+      "gold_answer": "William Jefferson Clinton",
+      "pred_answer": "Bill Clinton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+      "gold_answer": "John John Florence",
+      "pred_answer": "Brylan Van Artsdalen",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+      "gold_answer": "Ann",
+      "pred_answer": "Ann",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "gold_answer": "Apalachees",
+      "pred_answer": "Cayenne",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "gold_answer": "British",
+      "pred_answer": "British",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "gold_answer": "1865",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+      "gold_answer": "Newport",
+      "pred_answer": "Newport",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+      "gold_answer": "Bob Seger",
+      "pred_answer": "Bob Seger",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+      "gold_answer": "Conscription",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+      "gold_answer": "Mondelez International, Inc.",
+      "pred_answer": "Mondelez International",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+      "gold_answer": "Monica Lewinsky",
+      "pred_answer": "Connie Mariano",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+      "gold_answer": "April 1, 1949",
+      "pred_answer": "December 31, 1977",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first published?",
+      "gold_answer": "1866",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "gold_answer": "Canary Islands, Spain",
+      "pred_answer": "Tenerife (Canary Islands, Spain)",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "gold_answer": "250 million",
+      "pred_answer": "more than 250 million copies worldwide",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "gold_answer": "director",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "gold_answer": "The Conversation",
+      "pred_answer": "The Conversation",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "gold_answer": "John Waters",
+      "pred_answer": "William Cameron Menzies",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 4,
+      "stopped_by": "policy"
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+      "gold_answer": "Las Vegas Strip in Paradise",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+      "gold_answer": "March and April",
+      "pred_answer": "March",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "gold_answer": "Fairfax County",
+      "pred_answer": "McLean County",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "gold_answer": "IT products and services",
+      "pred_answer": "food",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "gold_answer": "Levni Yilmaz",
+      "pred_answer": "Lev Yilmaz",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region to China based?",
+      "gold_answer": "Beijing",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    }
+  ],
+  "NeverStop (max_steps=6)": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "gold_answer": "yes",
+      "pred_answer": "no",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "gold_answer": "Chief of Protocol",
+      "pred_answer": "United States Senator",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "gold_answer": "Animorphs",
+      "pred_answer": "The Magazine of Fantasy &amp; Scienc",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "gold_answer": "Greenwich Village, New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "gold_answer": "YG Entertainment",
+      "pred_answer": "JYP Entertainment",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "gold_answer": "Eenasul Fateh",
+      "pred_answer": "Francis J. Beckwith",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "gold_answer": "3,677 seated",
+      "pred_answer": "4,000 capacity (3,677 seated)",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "gold_answer": "Terry Richardson",
+      "pred_answer": "Annie Morton",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "gold_answer": "yes",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "gold_answer": "Kansas Song",
+      "pred_answer": "Can't Fight the Moonlight",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "gold_answer": "David Weissman",
+      "pred_answer": "David Weissman",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "gold_answer": "1999",
+      "pred_answer": "1997",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "gold_answer": "from 1986 to 2013",
+      "pred_answer": "2009",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "gold_answer": "9,984",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "gold_answer": "the North Atlantic Conference",
+      "pred_answer": "Association of Collegiate Schools of Engineering",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "gold_answer": "1969 until 1974",
+      "pred_answer": "1933\u20131941",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "gold_answer": "Robert Erskine Childers DSC",
+      "pred_answer": "Robert Caesar Childers",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "gold_answer": "Pedro Rodr\u00edguez",
+      "pred_answer": "Benjam\u00edn Arellano",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "gold_answer": "Sonic",
+      "pred_answer": "Pooch",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "gold_answer": "keyboard function keys",
+      "pred_answer": "the 4th Generation Apple TV",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "gold_answer": "Badly Drawn Boy",
+      "pred_answer": "Wolf Alice",
+      "correct": false,
+      "n_steps": 5,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "gold_answer": "World's Best Goalkeeper",
+      "pred_answer": "Jens Melzig",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "gold_answer": "Barton Lee Hazlewood",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "gold_answer": "1838",
+      "pred_answer": "1995",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "gold_answer": "Henry J. Kaiser",
+      "pred_answer": "Henry J. Kaiser",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "gold_answer": "Arena of Khazan",
+      "pred_answer": "Thrillville",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "gold_answer": "2000",
+      "pred_answer": "2000",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "gold_answer": "Fujioka, Gunma",
+      "pred_answer": "Japan",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "gold_answer": "Charles Eug\u00e8ne",
+      "pred_answer": "Jean-Louis Levasseur",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "gold_answer": "Letters to Cleo",
+      "pred_answer": "Screaming Trees",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "gold_answer": "October 1922",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "gold_answer": "2000",
+      "pred_answer": "1939",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "gold_answer": "World War II",
+      "pred_answer": "World War I",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 2,
+      "n_tool_calls": 1,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "gold_answer": "New York City",
+      "pred_answer": "New York City",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "gold_answer": "Scotch Collie",
+      "pred_answer": "Scottish Collie",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "gold_answer": "Mumbai",
+      "pred_answer": "Kerala",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "gold_answer": "1962",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "gold_answer": "sovereignty",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "gold_answer": "Nelson Rockefeller",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "gold_answer": "Yellowcraig",
+      "pred_answer": "Firth of Forth",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "gold_answer": "Phil Spector",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "gold_answer": "Organizations could come together to address global issues",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "gold_answer": "yes",
+      "pred_answer": "yes",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "gold_answer": "English Electric Canberra",
+      "pred_answer": "English Electric Canberra",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which year and which conference was the 14th season for this conference as part of the NCAA Division that the Colorado Buffaloes played in with a record of 2-6 in conference play?",
+      "gold_answer": "2009 Big 12 Conference",
+      "pred_answer": "2012",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In 1991 Euromarch\u00e9 was bought by a chain that operated how any hypermarkets at the end of 2016?",
+      "gold_answer": "1,462",
+      "pred_answer": "Carrefour",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What race track in the midwest hosts a 500 mile race eavery May?",
+      "gold_answer": "Indianapolis Motor Speedway",
+      "pred_answer": "Cayuga\u2013Seneca Canal",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what city did the \"Prince of tenors\" star in a film based on an opera by Giacomo Puccini?",
+      "gold_answer": "Rome",
+      "pred_answer": "New York City",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Ellie Goulding worked with what other writers on her third studio album, Delirium?",
+      "gold_answer": "Max Martin, Savan Kotecha and Ilya Salmanzadeh",
+      "pred_answer": "Paul McCartney",
+      "correct": false,
+      "n_steps": 5,
+      "n_tool_calls": 4,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which Australian city founded in 1838 contains a boarding school opened by a Prime Minister of Australia and named after a school in London of the same name.",
+      "gold_answer": "Marion, South Australia",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "D1NZ is a series based on what oversteering technique?",
+      "gold_answer": "Drifting",
+      "pred_answer": "oversteer",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "who is younger Keith Bostic or Jerry Glanville ?",
+      "gold_answer": "Keith Bostic",
+      "pred_answer": "Timothy Scott \\",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 3,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "According to the 2001 census, what was the population of the city in which Kirton End is located?",
+      "gold_answer": "35,124",
+      "pred_answer": "101",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are both Cypress and Ajuga genera?",
+      "gold_answer": "no",
+      "pred_answer": "yes",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What distinction is held by the former NBA player who was a member of the Charlotte Hornets during their 1992-93 season and was head coach for the WNBA team Charlotte Sting?",
+      "gold_answer": "shortest player ever to play in the National Basketball Association",
+      "pred_answer": "former NBA player",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the name of the executive producer of the film that has a score composed by Jerry Goldsmith?",
+      "gold_answer": "Ronald Shusett",
+      "pred_answer": "Katharine Ross",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Who was born earlier, Emma Bull or Virginia Woolf?",
+      "gold_answer": "Adeline Virginia Woolf",
+      "pred_answer": "Ian Schneider (born October 3, 1992)",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the Roud Folk Song Index of the nursery rhyme inspiring What Are Little Girls Made Of?",
+      "gold_answer": "821",
+      "pred_answer": "821",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Scott Parkin has been a vocal critic of Exxonmobil and another corporation that has operations in how many countries ?",
+      "gold_answer": "more than 70 countries",
+      "pred_answer": "six",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What WB supernatrual drama series was Jawbreaker star Rose Mcgowan best known for being in?",
+      "gold_answer": "Charmed",
+      "pred_answer": "Jawbreaker",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Vince Phillips held a junior welterweight title by an organization recognized by what larger Hall of Fame?",
+      "gold_answer": "International Boxing Hall of Fame",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What is the name of the singer who's song was released as the lead single from the album \"Confessions\", and that had popular song stuck behind for eight consecutive weeks?",
+      "gold_answer": "Usher",
+      "pred_answer": "Sonic Youth",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "who is the younger brother of The episode guest stars of The Hard Easy ",
+      "gold_answer": "Bill Murray",
+      "pred_answer": "James Dean",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The 2017\u201318 Wigan Athletic F.C. season will be a year in which the team competes in the league cup known as what for sponsorship reasons?",
+      "gold_answer": "Carabao Cup",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Which of Tara Strong major voice role in animated series is an American animated television series based on the DC Comics fictional superhero team, the \"Teen Titans\"?",
+      "gold_answer": "Teen Titans Go!",
+      "pred_answer": "Teen Titans",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the inhabitant of the city where  122nd SS-Standarte was formed in2014",
+      "gold_answer": "276,170 inhabitants",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What color clothing do people of the Netherlands wear during Oranjegekte or to celebrate the national holiday Koningsdag? ",
+      "gold_answer": "orange",
+      "pred_answer": "white",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of the 1996 loose adaptation of William Shakespeare's \"Romeo & Juliet\" written by James Gunn?",
+      "gold_answer": "Tromeo and Juliet",
+      "pred_answer": "Operation Lighthouse",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Robert Suettinger was the national intelligence officer under which former Governor of Arkansas?",
+      "gold_answer": "William Jefferson Clinton",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "What American professional Hawaiian surfer born 18 October 1992 won the Rip Curl Pro Portugal?",
+      "gold_answer": "John John Florence",
+      "pred_answer": "Tan Kai",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the middle name of the actress who plays Bobbi Bacha in Suburban Madness?",
+      "gold_answer": "Ann",
+      "pred_answer": "Ann",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Alvaro Mexia had a diplomatic mission with which tribe of indigenous people?",
+      "gold_answer": "Apalachees",
+      "pred_answer": "Cayenne",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What nationality were social anthropologists Alfred Gell and Edmund Leach?",
+      "gold_answer": "British",
+      "pred_answer": "British",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In which year was the King who made the 1925 Birthday Honours born?",
+      "gold_answer": "1865",
+      "pred_answer": "18 December 1863",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What is the county seat of the county where East Lempster, New Hampshire is located?",
+      "gold_answer": "Newport",
+      "pred_answer": "Newport",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "The Album Against the Wind was the 11th Album of a Rock singer Robert C Seger born may 6 1945. What was the Rock singers stage name ?",
+      "gold_answer": "Bob Seger",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Rostker v. Goldberg held that the practice of what way of filling armed forces vacancies was consitutional?",
+      "gold_answer": "Conscription",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Handi-Snacks are a snack food product line sold by what American multinational confectionery, food, and beverage company that is based in Illinois?",
+      "gold_answer": "Mondelez International, Inc.",
+      "pred_answer": "Mondelez International",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What was the name of a woman from the book titled \"Their Lives: The Women Targeted by the Clinton Machine \" and was also a former white house intern?",
+      "gold_answer": "Monica Lewinsky",
+      "pred_answer": "Connie Mariano",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "When was the American lawyer, lobbyist and political consultant who was a senior member of the presidential campaign of Donald Trump born?",
+      "gold_answer": "April 1, 1949",
+      "pred_answer": "December 31, 1977",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what year was the novel that Louren\u00e7o Mutarelli based \"Nina\" on based first published?",
+      "gold_answer": "1866",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Where are Teide National Park and Garajonay National Park located?",
+      "gold_answer": "Canary Islands, Spain",
+      "pred_answer": "Tenerife (Canary Islands, Spain)",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "How many copies of Roald Dahl's variation on a popular anecdote sold?",
+      "gold_answer": "250 million",
+      "pred_answer": "more than 250 million copies worldwide",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "What occupation do Chris Menges and Aram Avakian share?",
+      "gold_answer": "director",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "Andrew Jaspan was the co-founder of what not-for-profit media outlet?",
+      "gold_answer": "The Conversation",
+      "pred_answer": "The Conversation",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which American film director hosted the 18th Independent Spirit Awards in 2002?",
+      "gold_answer": "John Waters",
+      "pred_answer": "John Mulaney",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Where does the hotel and casino located in which Bill Cosby's third album was recorded?",
+      "gold_answer": "Las Vegas Strip in Paradise",
+      "pred_answer": "Las Vegas Strip",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Do the drinks Gibson and Zurracapote both contain gin?",
+      "gold_answer": "no",
+      "pred_answer": "no",
+      "correct": true,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? ",
+      "gold_answer": "March and April",
+      "pred_answer": "June",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Tysons Galleria is located in what county?",
+      "gold_answer": "Fairfax County",
+      "pred_answer": "McLean County",
+      "correct": false,
+      "n_steps": 4,
+      "n_tool_calls": 3,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Bordan Tkachuk was the CEO of a company that provides what sort of products?",
+      "gold_answer": "IT products and services",
+      "pred_answer": "food",
+      "correct": false,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Which filmmaker was known for animation, Lev Yilmaz or Pamela B. Green?",
+      "gold_answer": "Levni Yilmaz",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 2,
+      "n_tool_calls": 2,
+      "stopped_by": "parse_error"
+    },
+    {
+      "question": "In which city is the ambassador of the Rabat-Sal\u00e9-K\u00e9nitra administrative region to China based?",
+      "gold_answer": "Beijing",
+      "pred_answer": "Beijing",
+      "correct": true,
+      "n_steps": 3,
+      "n_tool_calls": 2,
+      "stopped_by": "answer"
+    },
+    {
+      "question": "Are Yingkou and Fuding the same level of city?",
+      "gold_answer": "no",
+      "pred_answer": "",
+      "correct": false,
+      "n_steps": 1,
+      "n_tool_calls": 1,
+      "stopped_by": "parse_error"
+    }
+  ]
+}

@@ -5,3 +5,18 @@ __pycache__/
 *.pyo
 *.egg-info/
 .DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+texput.log
+
+# local tool state
+.claude/
