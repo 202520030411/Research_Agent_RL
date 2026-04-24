@@ -59,19 +59,26 @@ training.
 \label{sec:intro}
 
 A \emph{research agent} is a language model that answers a user's
-question by issuing real tool calls (typically a search API) and
-reasoning over the retrieved content over several rounds. ReAct
-\cite{react} established the interleaved reason-and-act pattern,
-and the DeepSeek-R1 \cite{deepseek-r1} line of work showed that
-GRPO-style reinforcement learning can further sharpen such
-multi-step reasoning. Most RL-for-LLM recipes, including R1, train
+question by issuing real tool calls --- typically a search API
+--- and reasoning over the retrieved content over several
+rounds, as exemplified at the product level by systems like
+Perplexity and OpenAI's Deep Research \cite{deep-research}. At
+the research level, ReAct \cite{react} established the
+interleaved reason-and-act pattern and Toolformer
+\cite{toolformer} showed that a language model can learn
+\emph{when} to invoke an external API by self-supervision.
+Separately, policy-gradient post-training of language models has
+grown out of PPO-based RLHF \cite{rlhf-instructgpt} into the
+GRPO procedure popularised by DeepSeek-R1 \cite{deepseek-r1},
+which removes the critic network and normalises rewards within a
+group of rollouts. Most RL-for-LLM recipes, including R1, train
 on self-generated \emph{virtual} rollouts where the model emits
 both the action and the fake tool output. This creates a
-distribution mismatch: at inference a real retrieval index produces
-observations a small policy would never hallucinate. We study what
-happens if we close that gap --- running GRPO rollouts that execute
-the real BM25 tool at every step --- on a small 0.5B-parameter
-open policy.
+distribution mismatch: at inference a real retrieval index
+produces observations a small policy would never hallucinate. We
+study what happens if we close that gap --- running GRPO rollouts
+that execute the real BM25 tool at every step --- on a small
+0.5B-parameter open policy.
 
 Our testbed is HotpotQA distractor \cite{hotpotqa}, a two-hop
 multi-document QA benchmark. We compare three regimes: (i)~a
@@ -316,17 +323,13 @@ post-mortem and tuning journey are in the long-form report and
 \label{sec:conclusion}
 
 For a small SFT'd tool-using policy on HotpotQA, the dominant
-lever between a 26\% zero-shot baseline and a 44\% GRPO result
-is not the reinforcement-learning step: it is matching the
-inference trajectory length to the SFT trajectory length, which
-alone delivers 16 of the 18 EM points. Multi-turn GRPO with real
-tool execution produces no measurable lift on top of that at
-$n{=}100$, and the binding constraint is reward design --- a
-saturating format term leaves 80\% of GRPO updates with tied
-advantages --- not compute or KL stabilisation. A format-reward
-term with continuous intra-group variance on all-wrong groups is,
-on the analysis here, the single most likely change to move the
-needle.
+lever from 26\% to 44\% EM is matching the inference trajectory
+length to the SFT trajectory length (16 of 18 points), not the
+reinforcement-learning step. Multi-turn GRPO with real tool
+execution produces no measurable lift at $n{=}100$; the binding
+constraint is reward design --- a saturating format term leaves
+80\% of updates with tied advantages, and a continuous
+intra-group-variance term is the most likely next intervention.
 
 % ==========================================================
 \bibliographystyle{plain}
