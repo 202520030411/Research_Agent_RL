@@ -14,13 +14,37 @@
 \usetikzlibrary{positioning, arrows.meta, shapes.geometric}
 
 % ---------- accent palette (matches the report's figures) ----------
-\definecolor{accent}{HTML}{08519c}      % deep blue (used for GRPO bar in Fig 1)
-\definecolor{accentLight}{HTML}{6baed6} % light blue (SFT bar in Fig 1)
+% Override metropolis's default dark-teal with the same deep blue
+% used for the GRPO bar in Figure 1.
+\definecolor{accent}{HTML}{08519c}       % deep blue (used for GRPO bar in Fig 1)
+\definecolor{accentMid}{HTML}{2171b5}    % mid blue
+\definecolor{accentLight}{HTML}{6baed6}  % light blue (SFT bar in Fig 1)
 \definecolor{baselineGrey}{HTML}{bdbdbd}
+
+% Re-bind metropolis's internal theme colours to our blue palette.
+\colorlet{mDarkTeal}{accent}
+\colorlet{mLightBrown}{accentMid}
+
+% Enforce the rebinding everywhere metropolis uses these colours.
+\setbeamercolor{normal text}{fg=black, bg=white}
+\setbeamercolor{alerted text}{fg=accent}
 \setbeamercolor{progress bar}{fg=accent}
 \setbeamercolor{title separator}{fg=accent}
-\setbeamercolor{normal text}{fg=black}
-\setbeamercolor{alerted text}{fg=accent}
+\setbeamercolor{frametitle}{bg=accent, fg=white}
+\setbeamercolor{frametitle right}{bg=accent, fg=white}
+\setbeamercolor{block title}{bg=accent, fg=white}
+\setbeamercolor{block title alerted}{bg=accent!85, fg=white}
+\setbeamercolor{block body}{bg=accent!8, fg=black}
+\setbeamercolor{section title}{fg=accent}
+\setbeamercolor{subsection title}{fg=accent}
+\setbeamercolor{title}{fg=accent}
+\setbeamercolor{subtitle}{fg=accent}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{date}{fg=black!70}
+
+% standout (closing) slide -- metropolis pulls its bg from palette primary
+\setbeamercolor{palette primary}{bg=accent, fg=white}
+\setbeamercolor{standout}{bg=accent, fg=white}
 
 % Tighter frame title bar
 \setbeamertemplate{frame numbering}[fraction]
