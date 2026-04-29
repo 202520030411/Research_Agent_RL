@@ -695,6 +695,7 @@ def train(
     temperature:     float = 0.5,
     val_every:       int = 5,
     save_every:      int = 10,
+    max_train_seconds: float | None = None,
     device:          str = "cuda",
     seed:            int = 42,
 ):
@@ -710,11 +711,21 @@ def train(
     )
 
     log = []
+    train_t0 = time.time()
 
     print(f"Multi-turn GRPO training: {n_epochs} epochs, "
           f"batch={batch_size} questions × G={G} episodes\n")
 
     for epoch in range(1, n_epochs + 1):
+        if max_train_seconds is not None and time.time() - train_t0 >= max_train_seconds:
+            print(
+                f"Stopping before epoch {epoch}: "
+                f"max_train_seconds={max_train_seconds:.0f}s reached. "
+                "Saving final checkpoint.",
+                flush=True,
+            )
+            break
+
         t0 = time.time()
         batch = random.sample(train_questions, min(batch_size, len(train_questions)))
 
