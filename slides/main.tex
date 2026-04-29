@@ -72,41 +72,44 @@
 % ============================================================
 % SLIDE 2 -- PROBLEM / MOTIVATION  (~40 s)
 % ============================================================
-\begin{frame}{What is a research agent --- and what's the gap?}
+\begin{frame}{What is a research agent --- and what's the question?}
 
 \textbf{Research agent.} Language model that answers a question by
 issuing real tool calls (search, read), reasoning over results,
-over several rounds. ReAct, Toolformer, Perplexity, Deep Research.
+over several rounds. ReAct, Toolformer; deployed at scale in
+Perplexity and Deep Research.
 
 \vspace{0.5em}
 
-\textbf{The gap with current RL recipes.} DeepSeek-R1-style GRPO
-trains on \emph{virtual} rollouts:
-\begin{center}
-\begin{tikzpicture}[node distance=0.4em, font=\small]
-\node[draw, rounded corners, fill=baselineGrey!30, inner sep=4pt]
-  (v) {model emits action \textbf{and} pretends-to-be-the-tool's-answer, all as tokens};
-\end{tikzpicture}
-\end{center}
-At inference the real retrieval index gives observations a 0.5B
-policy would never hallucinate. \alert{Distribution mismatch.}
+\textbf{Training-with-real-tools is the 2025 frontier.}
+Search-R1, R1-Searcher(++), RAGEN/StarPO, WebAgent-R1 all do
+multi-turn RL where the \emph{real} retrieval / web / code tool
+is dispatched between rollout steps, on top of GRPO-style
+within-group advantage. Reported gains: $+20$--$41$ EM on
+3--7B-parameter open models against RAG baselines.
 
 \vspace{0.5em}
 
-\textbf{We close that gap.} Every GRPO rollout in training executes
-the \emph{real} BM25 retrieval at every step, on a small open
-0.5B-parameter policy.
+\textbf{Our question, narrower.}\quad
+What does this recipe buy you on a \emph{0.5B} open policy that
+fits on a free-tier T4 --- and what does it look like once you
+strip away inference-time confounds and put it head-to-head with
+a properly-configured SFT baseline?
 
 % Speaker notes
 % -------------
-% "Research agents are the search-then-reason loop you see in
-% Perplexity, ReAct, etc. Standard practice for training them with
-% RL is to have the MODEL generate the tool output too -- it's
-% cheaper, you don't need an external system. But that creates a
-% distribution mismatch: at inference time the real retriever gives
-% you observations that look NOTHING like what a 0.5B model would
-% hallucinate. Our experiment is: what if we close that gap?
-% Run real BM25 at every step during RL training, on a 0.5B model."
+% "Research agents are the search-then-reason loop in Perplexity,
+% Deep Research, ReAct. Training them with RL where the REAL tool is
+% executed between rollout steps -- as opposed to having the model
+% hallucinate the tool output -- is a very active line of work in 2025:
+% Search-R1, R1-Searcher, RAGEN, WebAgent-R1, all real-tool multi-turn
+% RL on top of GRPO-style advantage. They report 20-40% gains at 3-7B
+% scale.
+%
+% Our question is narrower. What does this recipe actually buy you on
+% a 0.5B model on a free T4? And -- crucially -- once you compare it
+% head-to-head with a CAREFULLY CONFIGURED SFT baseline, not just any
+% baseline. That's where the talk is going."
 \end{frame}
 
 % ============================================================
