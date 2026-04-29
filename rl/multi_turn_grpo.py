@@ -38,6 +38,7 @@ from rl.grpo_rewards import (
     correctness_reward,
     format_reward,
     efficiency_reward,
+    continuous_auxiliary_reward,
     parse_trace,
     _extract_json_objects,
 )
@@ -557,6 +558,7 @@ def grpo_train_step(
     alpha:        float = 0.1,
     beta:         float = 0.05,
     epsilon:      float = 0.05,
+    aux_weight:   float = 1.0,
     temperature:  float = 0.5,
     device:       str   = "cuda",
 ) -> dict:
@@ -576,6 +578,8 @@ def grpo_train_step(
     total_steps     = 0
     total_episodes  = 0
     running_loss    = 0.0
+    total_aux_reward = 0.0
+    non_tied_groups  = 0
 
     # Pre-count expected episodes so we can pre-scale each per-episode loss
     # by 1/N. This lets us call .backward() per episode — the activations
@@ -614,7 +618,12 @@ def grpo_train_step(
         r_corr = correctness_reward(completions, answer=[gold_answer] * G)
         r_fmt  = format_reward(completions)
         r_eff  = efficiency_reward(completions, alpha=alpha, beta=beta, epsilon=epsilon)
-        rewards = [c + f + e for c, f, e in zip(r_corr, r_fmt, r_eff)]
+        r_aux  = continuous_auxiliary_reward(completions)
+        rewards = [
+            c + f + e + aux_weight * a
+            for c, f, e, a in zip(r_corr, r_fmt, r_eff, r_aux)
+        ]
+        total_aux_reward += sum(r_aux)
 
         for ep, r in zip(group, rewards):
             ep.reward = r
@@ -622,6 +631,8 @@ def grpo_train_step(
         # --- GRPO advantages (within-group normalisation) ---
         r_mean = sum(rewards) / G
         r_std  = (sum((r - r_mean) ** 2 for r in rewards) / G) ** 0.5 + 1e-8
+        if r_std > 1e-6:
+            non_tied_groups += 1
         advantages = [(r - r_mean) / r_std for r in rewards]
 
         # --- Per-episode forward + backward: graph for each trajectory is
@@ -652,9 +663,11 @@ def grpo_train_step(
     optimizer.step()
 
     return {
-        "loss":      running_loss,
-        "accuracy":  total_correct / max(total_episodes, 1),
-        "avg_steps": total_steps   / max(total_episodes, 1),
+        "loss":       running_loss,
+        "accuracy":   total_correct / max(total_episodes, 1),
+        "avg_steps":  total_steps   / max(total_episodes, 1),
+        "avg_aux":    total_aux_reward / max(total_episodes, 1),
+        "non_tied_groups": non_tied_groups,
     }
 
 
@@ -678,6 +691,7 @@ def train(
     alpha:           float = 0.1,
     beta:            float = 0.05,
     epsilon:         float = 0.05,
+    aux_weight:      float = 1.0,
     temperature:     float = 0.5,
     val_every:       int = 5,
     save_every:      int = 10,
@@ -716,6 +730,7 @@ def train(
             alpha=alpha,
             beta=beta,
             epsilon=epsilon,
+            aux_weight=aux_weight,
             temperature=temperature,
             device=device,
         )
@@ -727,6 +742,8 @@ def train(
               f"loss={metrics['loss']:+.4f}  "
               f"acc={metrics['accuracy']:.2f}  "
               f"steps={metrics['avg_steps']:.1f}  "
+              f"aux={metrics['avg_aux']:.3f}  "
+              f"ntied={metrics['non_tied_groups']}  "
               f"({elapsed:.0f}s)")
 
         # --- Validation ---
