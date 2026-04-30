@@ -5,8 +5,8 @@ Use this in a fresh Kaggle notebook with:
   - GPU T4 enabled
   - Internet ON
 
-This is intentionally eval-only and small (N_EVAL=10) so it finishes well
-under one hour. It saves partial results after every question.
+This is eval-only and runs the normal 100-question final eval. It saves
+partial results after every question.
 """
 
 # %% 1. Install + clone repo
@@ -91,9 +91,9 @@ from agent.tools import ToolExecutor
 from data.sft_dataset import SYSTEM_PROMPT
 from rl.multi_turn_grpo import collect_episode
 
-N_EVAL = 10
-MAX_EVAL_SECONDS = 45 * 60
-OUT = "/kaggle/working/quick_eval_10.json"
+N_EVAL = 100
+MAX_EVAL_SECONDS = 3 * 3600
+OUT = "/kaggle/working/quick_eval_100.json"
 
 hf = load_dataset("hotpot_qa", "distractor", trust_remote_code=True)
 val_hf = hf["validation"]
@@ -163,4 +163,3 @@ for idx, q in enumerate(tqdm(val_questions, desc="Quick eval")):
 
 print(summary)
 print("Saved:", OUT)
-
